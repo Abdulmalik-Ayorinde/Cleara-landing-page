@@ -410,7 +410,7 @@ export default function LandingPage() {
 
           {/* ──────── FEATURES ──────── */}
           <FadeIn id="how-it-works" className="pb-10 xl:pb-20">
-            <div className="flex flex-col xl:flex-row items-center xl:items-start justify-between gap-x-[73px] gap-y-12">
+            <div className="flex flex-col xl:flex-row items-cente xl:items-start justify-between gap-x-[73px] gap-y-12">
               <div className="flex flex-col gap-[73px] w-full max-w-[648px] shrink-0">
                 <div className="flex flex-col gap-[20px] w-full max-w-[429px]">
                   <p className="text-[18px] font-normal leading-[20px] text-darker">
