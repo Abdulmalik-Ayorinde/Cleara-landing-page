@@ -35,7 +35,7 @@ const featureCards = [
   },
   {
     icon: "/assets/icons/collaborate.svg",
-    title:   "Client Collaboration",
+    title: "Client Collaboration",
     description:
       "Reduce back and forth communication by giving clients direct access to project updates, milestones, and deliverables whenever they need.",
   },
@@ -318,7 +318,10 @@ export default function LandingPage() {
               </p>
             </div>
             <div className="flex items-center gap-[12px]">
-              <button onClick={() => setShowWaitlist(true)} className="bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]">
+              <button
+                onClick={() => setShowWaitlist(true)}
+                className="bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]"
+              >
                 Join Waitlist
               </button>
               <button className="border border-dark flex items-center gap-[10px] px-[22px] py-[13px] rounded-[30px] text-[16px] text-dark font-normal">
@@ -964,8 +967,7 @@ export default function LandingPage() {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-[10px] w-full max-w-[607px] shrink-0"
-              style={{ minHeight: "452px" }}
+              className="relative bg-white rounded-[10px] w-full max-w-[607px] shrink-0 min-h-[452px]"
             >
               {/* Decorative vector */}
               <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[10px]">
@@ -990,33 +992,27 @@ export default function LandingPage() {
 
               {/* Header */}
               <div className="relative z-[1] flex flex-col items-center text-center pt-[50px] px-5">
-                <p className="text-[24px] font-semibold text-black" style={{ lineHeight: "24px" }}>
+                <p className="text-[24px] font-semibold text-black leading-[24px]">
                   Get Early Access to Cleara
                 </p>
-                <p className="mt-[12px] text-[14px] font-normal text-black" style={{ lineHeight: "14px", maxWidth: "357px" }}>
-                  Sign up for early access and discover how one unified workspace
-                  can transform the way you work with clients.
+                <p className="mt-[12px] text-[14px] font-normal text-black leading-[18px] max-w-[357px]">
+                  Sign up for early access and discover how one unified
+                  workspace can transform the way you work with clients.
                 </p>
               </div>
 
               {/* Inner card */}
               <div className="relative z-[1] mx-[63px] mt-[55px] bg-white/60 rounded-[10px] overflow-hidden">
-                <div
-                  className="bg-gradient-to-b from-[rgba(215,233,235,0.2)] to-[rgba(122,132,133,0)] mx-[7px] my-[7px] rounded-[10px] flex flex-col items-center"
-                  style={{ paddingTop: "25px", paddingBottom: "27px" }}
-                >
-                  <p className="text-[16px] font-semibold text-black" style={{ lineHeight: "16px" }}>
+                <div className="bg-gradient-to-b from-[rgba(215,233,235,0.2)] to-[rgba(122,132,133,0)] mx-[7px] my-[7px] rounded-[10px] flex flex-col items-center pt-[25px] pb-[27px]">
+                  <p className="text-[16px] font-semibold text-black leading-[16px]">
                     Join the waitlist
                   </p>
-                  <p className="mt-[10px] text-[14px] font-normal text-black" style={{ lineHeight: "14px" }}>
+                  <p className="mt-[10px] text-[14px] font-normal text-black leading-[14px]">
                     Sign up now for early notification upon launch.
                   </p>
 
                   {/* Email input */}
-                  <div
-                    className="flex items-center bg-[rgba(255,255,255,0.83)] border border-[rgba(53,145,155,0.15)] rounded-[50px]"
-                    style={{ height: "50px", width: "340px", marginTop: "36px" }}
-                  >
+                  <div className="flex items-center bg-[rgba(255,255,255,0.83)] border border-[rgba(53,145,155,0.15)] rounded-[50px] h-[50px] w-[340px] mt-[36px]">
                     <input
                       type="email"
                       placeholder="Enter your email"
@@ -1031,7 +1027,7 @@ export default function LandingPage() {
                   </div>
 
                   {/* Social icons */}
-                  <div className="flex items-center gap-[8px]" style={{ marginTop: "25px" }}>
+                  <div className="flex items-center gap-[8px] mt-[25px]">
                     <a href="#">
                       <img
                         src="/assets/icons/linkedin.svg"
