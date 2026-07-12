@@ -30,12 +30,29 @@ const featureCards = [
   {
     icon: "/assets/icons/track-changes.svg",
     title: "Track Your Project",
-    description: "",
+    description:
+      "Keep every project organized from kickoff to delivery. Monitor milestones, track progress, and manage tasks all in one place.",
   },
   {
     icon: "/assets/icons/collaborate.svg",
     title: "Client Collaboration",
-    description: "",
+    description:
+      "Share documents, collect feedback, and communicate with clients in real time. No more endless email threads or version confusion.",
+  },
+];
+
+const featureImages = [
+  {
+    bg: "/assets/screenshots/feature-preview.png",
+    inset: "/assets/screenshots/dashboard-interview.png",
+  },
+  {
+    bg: "/assets/screenshots/feature-preview.png",
+    inset: "/assets/screenshots/dashboard-document-activity.png",
+  },
+  {
+    bg: "/assets/screenshots/feature-preview.png",
+    inset: "/assets/screenshots/dashboard-interview.png",
   },
 ];
 
@@ -183,6 +200,7 @@ function FadeIn({
 export default function LandingPage() {
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [testimonialIdx, setTestimonialIdx] = useState(0);
+  const [activeFeature, setActiveFeature] = useState(0);
 
   return (
     <main className="overflow-x-hidden">
@@ -376,25 +394,33 @@ export default function LandingPage() {
                 </div>
                 <div className="flex flex-col gap-[12px]">
                   {featureCards.map((card, i) => (
-                    <div
+                    <motion.div
                       key={card.title}
-                      className="bg-white border border-primary-100 rounded-[10px] p-[19px] flex flex-col gap-[17px]"
-                      style={{ minHeight: i === 0 ? "131px" : "78px" }}
+                      layout
+                      onClick={() => setActiveFeature(i)}
+                      transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+                      className="bg-white border border-primary-100 rounded-[10px] p-[19px] flex flex-col gap-[17px] overflow-hidden cursor-pointer"
                     >
-                      <div className="flex items-center gap-[12px]">
+                      <motion.div layout className="flex items-center gap-[12px]">
                         <div className="bg-primary rounded-[5px] flex items-center justify-center size-[32px]">
                           <img src={card.icon} alt="" className="size-[18px]" />
                         </div>
                         <span className="text-[18px] font-medium leading-[22px] text-dark">
                           {card.title}
                         </span>
-                      </div>
-                      {card.description && (
-                        <p className="text-[16px] font-normal leading-[22px] text-dark ml-[44px]">
+                      </motion.div>
+                      {activeFeature === i && (
+                        <motion.p
+                          key="desc"
+                          initial={{ opacity: 0, y: 60 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, ease: "easeOut" }}
+                          className="text-[16px] font-normal leading-[22px] text-dark ml-[44px]"
+                        >
                           {card.description}
-                        </p>
+                        </motion.p>
                       )}
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -409,11 +435,18 @@ export default function LandingPage() {
                 </div>
                 <div className="absolute inset-0 bg-black/7 rounded-[15px]" />
                 <div className="absolute inset-[36px] rounded-[10px] overflow-hidden">
-                  <img
-                    src="/assets/screenshots/dashboard-interview.png"
-                    alt="Dashboard interview preview"
-                    className="size-full object-cover rounded-[10px]"
-                  />
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={activeFeature}
+                      src={featureImages[activeFeature].inset}
+                      alt="Feature preview"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.35, ease: "easeInOut" }}
+                      className="size-full object-cover rounded-[10px]"
+                    />
+                  </AnimatePresence>
                 </div>
               </div>
             </div>
