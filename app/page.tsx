@@ -974,7 +974,7 @@ export default function LandingPage() {
                 <img
                   src="/assets/icons/hero-vector.svg"
                   alt=""
-                  className="absolute w-[1618px] h-[153.5px] left-1/2 -translate-x-1/2 top-[95px] max-w-none"
+                  className="absolute inset-0 w-full h-full max-w-none"
                 />
               </div>
 
