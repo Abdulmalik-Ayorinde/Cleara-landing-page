@@ -48,7 +48,7 @@ const featureImages = [
   },
   {
     bg: "/assets/screenshots/feature-preview.png",
-    inset: "/assets/screenshots/dashboard-document-activity.png",
+    inset: "/assets/screenshots/track-project-inset.png",
   },
   {
     bg: "/assets/screenshots/feature-preview.png",
