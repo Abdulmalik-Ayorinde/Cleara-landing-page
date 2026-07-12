@@ -955,7 +955,7 @@ export default function LandingPage() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setShowWaitlist(false)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(26,26,26,0.12)] backdrop-blur-[7.5px]"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(26,26,26,0.12)] backdrop-blur-[7.5px] px-4 overflow-y-auto"
           >
             <motion.div
               key="waitlist-modal"
@@ -964,10 +964,11 @@ export default function LandingPage() {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-[10px] w-full max-w-[607px] overflow-hidden"
+              className="relative bg-white rounded-[10px] w-full max-w-[607px] shrink-0"
               style={{ minHeight: "452px" }}
             >
-              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              {/* Decorative vector */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[10px]">
                 <img
                   src="/assets/icons/hero-vector.svg"
                   alt=""
@@ -975,9 +976,10 @@ export default function LandingPage() {
                 />
               </div>
 
+              {/* Close button */}
               <button
                 onClick={() => setShowWaitlist(false)}
-                className="absolute top-[20px] right-[20px] z-10 size-[32px] flex items-center justify-center rounded-full hover:bg-surface-hover transition-colors"
+                className="absolute top-5 right-5 z-10 size-[32px] flex items-center justify-center rounded-full hover:bg-surface-hover transition-colors"
               >
                 <img
                   src="/assets/icons/cancel.svg"
@@ -986,26 +988,35 @@ export default function LandingPage() {
                 />
               </button>
 
-              <div className="relative z-[1] flex flex-col items-center text-center pt-[50px] px-10">
-                <p className="text-[24px] font-semibold leading-[24px] text-black max-w-[357px]">
+              {/* Header */}
+              <div className="relative z-[1] flex flex-col items-center text-center pt-[50px] px-5">
+                <p className="text-[24px] font-semibold text-black" style={{ lineHeight: "24px" }}>
                   Get Early Access to Cleara
                 </p>
-                <p className="mt-[12px] text-[14px] font-normal leading-[14px] text-black max-w-[357px]">
+                <p className="mt-[12px] text-[14px] font-normal text-black" style={{ lineHeight: "14px", maxWidth: "357px" }}>
                   Sign up for early access and discover how one unified workspace
                   can transform the way you work with clients.
                 </p>
               </div>
 
-              <div className="relative z-[1] mx-[63px] mt-[25px] mb-[30px] bg-white/60 rounded-[10px] overflow-hidden">
-                <div className="bg-gradient-to-b from-primary-100/20 to-transparent mx-[7px] mt-[7px] mb-[7px] rounded-[10px] flex flex-col items-center pt-[25px] pb-[20px]">
-                  <p className="text-[16px] font-semibold leading-[16px] text-black">
+              {/* Inner card */}
+              <div className="relative z-[1] mx-[63px] mt-[55px] bg-white/60 rounded-[10px] overflow-hidden">
+                <div
+                  className="bg-gradient-to-b from-[rgba(215,233,235,0.2)] to-[rgba(122,132,133,0)] mx-[7px] my-[7px] rounded-[10px] flex flex-col items-center"
+                  style={{ paddingTop: "25px", paddingBottom: "27px" }}
+                >
+                  <p className="text-[16px] font-semibold text-black" style={{ lineHeight: "16px" }}>
                     Join the waitlist
                   </p>
-                  <p className="mt-[10px] text-[14px] font-normal leading-[14px] text-black">
+                  <p className="mt-[10px] text-[14px] font-normal text-black" style={{ lineHeight: "14px" }}>
                     Sign up now for early notification upon launch.
                   </p>
 
-                  <div className="mt-[20px] flex items-center bg-[rgba(255,255,255,0.83)] border border-primary-100/15 rounded-[50px] h-[50px] w-[340px] max-w-full">
+                  {/* Email input */}
+                  <div
+                    className="flex items-center bg-[rgba(255,255,255,0.83)] border border-[rgba(53,145,155,0.15)] rounded-[50px]"
+                    style={{ height: "50px", width: "340px", marginTop: "36px" }}
+                  >
                     <input
                       type="email"
                       placeholder="Enter your email"
@@ -1019,7 +1030,8 @@ export default function LandingPage() {
                     </button>
                   </div>
 
-                  <div className="mt-[20px] flex items-center gap-[8px]">
+                  {/* Social icons */}
+                  <div className="flex items-center gap-[8px]" style={{ marginTop: "25px" }}>
                     <a href="#">
                       <img
                         src="/assets/icons/linkedin.svg"
