@@ -209,7 +209,7 @@ export default function LandingPage() {
   return (
     <main className="overflow-x-hidden">
       {/* ──────── HERO ──────── */}
-      <section className="relative bg-surface h-[697px] xl:h-297.5 overflow-hidden">
+      <section className="relative bg-surface xl:h-297.5 overflow-hidden px-4 xl:px-10">
         <img
           src="/assets/icons/hero-vector.svg"
           alt=""
@@ -220,14 +220,19 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex justify-between items-center bg-white rounded-[45px] xl:rounded-[39px] w-full max-w-[390px] xl:max-w-214.5 py-[14px] xl:py-3.5 px-[14px] xl:px-4.25"
+            className="flex justify-between items-center bg-white rounded-[45px] xl:rounded-[39px] w-full max-w-[500px] xl:max-w-214.5 h-[58px] xl:h-auto py-0 xl:py-3.5 px-[14px] xl:px-4.25"
           >
-            <div className="flex items-center gap-[5px] xl:gap-0">
-              <div className="size-[25px] xl:size-12 bg-primary xl:rounded-[30px] flex items-center justify-center rounded-none">
+            <div className="flex items-center gap-[5px]">
+              <div className="xl:size-12 xl:bg-primary xl:rounded-[30px] flex items-center justify-center">
+                <img
+                  src="/assets/icons/logo-icon-mobile.svg"
+                  alt=""
+                  className="size-[25px] xl:hidden"
+                />
                 <img
                   src="/assets/icons/ai-generate.svg"
                   alt=""
-                  className="size-full xl:size-7.75"
+                  className="hidden xl:block size-7.75"
                 />
               </div>
               <span className="text-[20px] xl:hidden font-medium text-primary leading-normal">
@@ -235,11 +240,11 @@ export default function LandingPage() {
               </span>
             </div>
             <button className="xl:hidden size-[30px] flex items-center justify-center">
-              <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
-                <rect y="7" width="30" height="2" rx="1" fill="#1a1a1a" />
-                <rect y="14" width="30" height="2" rx="1" fill="#1a1a1a" />
-                <rect y="21" width="30" height="2" rx="1" fill="#1a1a1a" />
-              </svg>
+              <img
+                src="/assets/icons/menu-hamburger.svg"
+                alt="Menu"
+                className="size-full"
+              />
             </button>
             <div className="hidden xl:flex items-center gap-[35px] text-[17px] leading-[20px] text-dark">
               <a href="#features" className="font-medium">
@@ -264,7 +269,7 @@ export default function LandingPage() {
           </motion.nav>
 
           {/* Marquee */}
-          <div className="mt-6 xl:mt-23.5 border border-[rgba(31,31,31,0.45)] rounded-[56px] w-full max-w-[347px] xl:max-w-101.75 py-3 xl:py-[13px] px-[19px] flex items-center">
+          <div className="mt-[48px] xl:mt-23.5 border border-[rgba(31,31,31,0.45)] rounded-[56px] w-full max-w-[347px] xl:max-w-101.75 py-3 xl:py-[13px] px-[19px] flex items-center">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -319,7 +324,7 @@ export default function LandingPage() {
           <div className="mt-7 xl:mt-[30px] flex flex-col items-center gap-9 xl:gap-[40px] w-full max-w-[364px] xl:max-w-[1479px]">
             <div className="text-center text-dark">
               <h1 className="font-semibold text-[30px] xl:text-[60px] leading-[normal] xl:leading-[75px]">
-                The Ai Workplace for
+                The AI Workplace for
                 <br />
                 Freelancers & Agencies
               </h1>
@@ -329,14 +334,14 @@ export default function LandingPage() {
                 multiple tools.
               </p>
             </div>
-            <div className="flex items-center gap-[12px]">
+            <div className="flex items-center justify-center flex-wrap gap-[12px]">
               <button
                 onClick={() => setShowWaitlist(true)}
-                className="bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]"
+                className="bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px] h-[48px]"
               >
                 Join Waitlist
               </button>
-              <button className="border border-dark flex items-center gap-[10px] px-[22px] py-[13px] rounded-[30px] text-[16px] text-dark font-normal">
+              <button className="border border-dark flex items-center gap-[10px] px-[22px] py-[13px] rounded-[30px] text-[16px] text-dark font-normal h-[48px]">
                 <img
                   src="/assets/icons/video-fill.svg"
                   alt=""
@@ -349,7 +354,7 @@ export default function LandingPage() {
         </div>
 
         {/* Dashboard screenshot in hero bg */}
-        <div className="absolute left-1/2 -translate-x-1/2 top-[516px] xl:top-[695px] w-[389px] xl:w-[1173px]">
+        <div className="relative -bottom-8 mt-[45px] xl:mt-[94px] mx-auto w-full xl:w-[1173px] px-4 xl:px-10">
           <img
             src="/assets/screenshots/dashboard-document-activity.png"
             alt="Dashboard preview"
