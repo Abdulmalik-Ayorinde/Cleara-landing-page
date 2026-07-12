@@ -226,11 +226,11 @@ export default function LandingPage() {
               />
             </div>
             <div className="flex items-center gap-[35px] text-[17px] leading-[20px] text-dark">
-              <span className="font-medium">Features</span>
-              <span className="font-normal">How it works</span>
-              <span className="font-normal">Testimonials</span>
-              <span className="font-normal">Pricing</span>
-              <span className="font-normal">FAQs</span>
+              <a href="#features" className="font-medium">Features</a>
+              <a href="#how-it-works" className="font-normal">How it works</a>
+              <a href="#testimonials" className="font-normal">Testimonials</a>
+              <a href="#pricing" className="font-normal">Pricing</a>
+              <a href="#faqs" className="font-normal">FAQs</a>
             </div>
             <button className=" bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]">
               Sign In
@@ -352,7 +352,7 @@ export default function LandingPage() {
           </FadeIn>
 
           {/* ──────── WHY CLEARA ──────── */}
-          <FadeIn className="flex justify- pb-20">
+          <FadeIn id="features" className="flex justify- pb-20">
             <div className="flex flex-col gap-[30px] w-full">
               <p className="text-[20px] font-medium text-darker">
                 Why Cleara works better
@@ -375,7 +375,7 @@ export default function LandingPage() {
           </FadeIn>
 
           {/* ──────── FEATURES ──────── */}
-          <FadeIn className="pb-20">
+          <FadeIn id="how-it-works" className="pb-20">
             <div className="flex flex-col xl:flex-row items-center xl:items-start justify-between gap-x-[73px] gap-y-12">
               <div className="flex flex-col gap-[73px] w-full max-w-[648px] shrink-0">
                 <div className="flex flex-col gap-[20px] w-full max-w-[429px]">
@@ -455,7 +455,7 @@ export default function LandingPage() {
       </section>
 
       {/* ──────── TESTIMONIALS ──────── */}
-      <section className="bg-primary py-20 xl:py-0 xl:h-[696px] flex items-center justify-center overflow-hidden">
+      <section id="testimonials" className="bg-primary py-20 xl:py-0 xl:h-[696px] flex items-center justify-center overflow-hidden">
         <div className="flex flex-col items-center w-full gap-[75px] px-10">
           <div className="text-center text-white max-w-[529px]">
             <p className="text-[30px] font-semibold leading-[29px]">
@@ -597,7 +597,7 @@ export default function LandingPage() {
       </section>
 
       {/* ──────── PRICING ──────── */}
-      <FadeIn className="flex flex-col items-center py-20 px-10">
+      <FadeIn id="pricing" className="flex flex-col items-center py-20 px-10">
         <div className="flex flex-col gap-[25px] items-center w-full max-w-[1287px]">
           <div className="flex flex-col gap-[25px] items-center w-full max-w-[492px]">
             <div className="text-center text-darker">
@@ -787,7 +787,7 @@ export default function LandingPage() {
       </FadeIn>
 
       {/* ──────── FAQ ──────── */}
-      <section className="bg-surface-hover py-[100px] flex justify-center">
+      <section id="faqs" className="bg-surface-hover py-[100px] flex justify-center">
         <FadeIn className="w-[1290px] max-w-[1479px] px-10">
           <div className="text-center text-dark mb-[50px]">
             <p className="text-[30px] font-semibold leading-[29px]">
