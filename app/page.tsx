@@ -31,13 +31,13 @@ const featureCards = [
     icon: "/assets/icons/track-changes.svg",
     title: "Track Your Project",
     description:
-      "Keep every project organized from kickoff to delivery. Monitor milestones, track progress, and manage tasks all in one place.",
+      "Turn approved work into structured projects with clear deliverables and timelines. Track progress in real time.",
   },
   {
     icon: "/assets/icons/collaborate.svg",
     title: "Client Collaboration",
     description:
-      "Share documents, collect feedback, and communicate with clients in real time. No more endless email threads or version confusion.",
+      "Reduce back and forth communication by giving clients direct access to project updates, milestones, and deliverables whenever they need.",
   },
 ];
 
@@ -52,7 +52,7 @@ const featureImages = [
   },
   {
     bg: "/assets/screenshots/feature-preview.png",
-    inset: "/assets/screenshots/dashboard-interview.png",
+    inset: "/assets/screenshots/collaboration-inset.png",
   },
 ];
 
@@ -229,11 +229,21 @@ export default function LandingPage() {
               />
             </div>
             <div className="flex items-center gap-[35px] text-[17px] leading-[20px] text-dark">
-              <a href="#features" className="font-medium">Features</a>
-              <a href="#how-it-works" className="font-normal">How it works</a>
-              <a href="#testimonials" className="font-normal">Testimonials</a>
-              <a href="#pricing" className="font-normal">Pricing</a>
-              <a href="#faqs" className="font-normal">FAQs</a>
+              <a href="#features" className="font-medium">
+                Features
+              </a>
+              <a href="#how-it-works" className="font-normal">
+                How it works
+              </a>
+              <a href="#testimonials" className="font-normal">
+                Testimonials
+              </a>
+              <a href="#pricing" className="font-normal">
+                Pricing
+              </a>
+              <a href="#faqs" className="font-normal">
+                FAQs
+              </a>
             </div>
             <button className=" bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]">
               Sign In
@@ -404,7 +414,10 @@ export default function LandingPage() {
                       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
                       className="bg-white border border-primary-100 rounded-[10px] p-[19px] flex flex-col gap-[17px] overflow-hidden cursor-pointer"
                     >
-                      <motion.div layout className="flex items-center gap-[12px]">
+                      <motion.div
+                        layout
+                        className="flex items-center gap-[12px]"
+                      >
                         <div className="bg-primary rounded-[5px] flex items-center justify-center size-[32px]">
                           <img src={card.icon} alt="" className="size-[18px]" />
                         </div>
@@ -458,7 +471,10 @@ export default function LandingPage() {
       </section>
 
       {/* ──────── TESTIMONIALS ──────── */}
-      <section id="testimonials" className="bg-primary py-20 xl:py-0 xl:h-[696px] flex items-center justify-center overflow-hidden">
+      <section
+        id="testimonials"
+        className="bg-primary py-20 xl:py-0 xl:h-[696px] flex items-center justify-center overflow-hidden"
+      >
         <div className="flex flex-col items-center w-full gap-[75px] px-10">
           <div className="text-center text-white max-w-[529px]">
             <p className="text-[30px] font-semibold leading-[29px]">
@@ -790,7 +806,10 @@ export default function LandingPage() {
       </FadeIn>
 
       {/* ──────── FAQ ──────── */}
-      <section id="faqs" className="bg-surface-hover py-[100px] flex justify-center">
+      <section
+        id="faqs"
+        className="bg-surface-hover py-[100px] flex justify-center"
+      >
         <FadeIn className="w-[1290px] max-w-[1479px] px-10">
           <div className="text-center text-dark mb-[50px]">
             <p className="text-[30px] font-semibold leading-[29px]">
