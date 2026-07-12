@@ -209,7 +209,7 @@ export default function LandingPage() {
   return (
     <main className="overflow-x-hidden">
       {/* ──────── HERO ──────── */}
-      <section className="relative bg-surface h-297.5 overflow-hidden">
+      <section className="relative bg-surface h-[697px] xl:h-297.5 overflow-hidden">
         <img
           src="/assets/icons/hero-vector.svg"
           alt=""
@@ -220,16 +220,28 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex justify-between items-center bg-white rounded-[39px] w-full max-w-214.5 py-3.5 px-4.25"
+            className="flex justify-between items-center bg-white rounded-[45px] xl:rounded-[39px] w-full max-w-[390px] xl:max-w-214.5 py-[14px] xl:py-3.5 px-[14px] xl:px-4.25"
           >
-            <div className="bg-primary rounded-[30px] size-12 flex items-center justify-center">
-              <img
-                src="/assets/icons/ai-generate.svg"
-                alt=""
-                className="size-7.75"
-              />
+            <div className="flex items-center gap-[5px] xl:gap-0">
+              <div className="size-[25px] xl:size-12 bg-primary xl:rounded-[30px] flex items-center justify-center rounded-none">
+                <img
+                  src="/assets/icons/ai-generate.svg"
+                  alt=""
+                  className="size-full xl:size-7.75"
+                />
+              </div>
+              <span className="text-[20px] xl:hidden font-medium text-primary leading-normal">
+                Cleara
+              </span>
             </div>
-            <div className="flex items-center gap-[35px] text-[17px] leading-[20px] text-dark">
+            <button className="xl:hidden size-[30px] flex items-center justify-center">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+                <rect y="7" width="30" height="2" rx="1" fill="#1a1a1a" />
+                <rect y="14" width="30" height="2" rx="1" fill="#1a1a1a" />
+                <rect y="21" width="30" height="2" rx="1" fill="#1a1a1a" />
+              </svg>
+            </button>
+            <div className="hidden xl:flex items-center gap-[35px] text-[17px] leading-[20px] text-dark">
               <a href="#features" className="font-medium">
                 Features
               </a>
@@ -246,13 +258,13 @@ export default function LandingPage() {
                 FAQs
               </a>
             </div>
-            <button className=" bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]">
+            <button className="hidden xl:block bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]">
               Sign In
             </button>
           </motion.nav>
 
           {/* Marquee */}
-          <div className="mt-23.5 border border-[rgba(31,31,31,0.45)] rounded-[56px] w-full max-w-101.75 py-[13px] px-[19px] flex items-center">
+          <div className="mt-6 xl:mt-23.5 border border-[rgba(31,31,31,0.45)] rounded-[56px] w-full max-w-[347px] xl:max-w-101.75 py-3 xl:py-[13px] px-[19px] flex items-center">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -304,14 +316,14 @@ export default function LandingPage() {
           </div>
 
           {/* Hero Text */}
-          <div className="mt-[30px] flex flex-col items-center gap-[40px] w-[718px] max-w-[1479px]">
+          <div className="mt-7 xl:mt-[30px] flex flex-col items-center gap-9 xl:gap-[40px] w-full max-w-[364px] xl:max-w-[1479px]">
             <div className="text-center text-dark">
-              <h1 className="font-semibold text-[60px] leading-[75px]">
-                The AI Workspace for
+              <h1 className="font-semibold text-[30px] xl:text-[60px] leading-[normal] xl:leading-[75px]">
+                The Ai Workplace for
                 <br />
                 Freelancers & Agencies
               </h1>
-              <p className="mt-[15px] text-[18px] font-normal leading-[30px] w-[597px] max-w-full mx-auto">
+              <p className="mt-3 xl:mt-[15px] text-[16px] xl:text-[18px] font-normal leading-[normal] xl:leading-[30px] w-full xl:w-[597px] mx-auto">
                 Turn ideas into polished documents, manage projects with
                 clients, and review contracts before signing — without juggling
                 multiple tools.
@@ -337,11 +349,11 @@ export default function LandingPage() {
         </div>
 
         {/* Dashboard screenshot in hero bg */}
-        <div className="absolute left-1/2 -translate-x-1/2 top-[695px] w-[1173px] max-w-[1479px]">
+        <div className="absolute left-1/2 -translate-x-1/2 top-[516px] xl:top-[695px] w-[389px] xl:w-[1173px]">
           <img
             src="/assets/screenshots/dashboard-document-activity.png"
             alt="Dashboard preview"
-            className="w-full rounded-[20px]"
+            className="w-full rounded-[5px] xl:rounded-[20px]"
             style={{
               boxShadow:
                 "-49px -131px 39px 0px rgba(161,161,161,0), -31px -84px 36px 0px rgba(161,161,161,0.01), -18px -47px 30px 0px rgba(161,161,161,0.05), -8px -21px 22px 0px rgba(161,161,161,0.09), -2px -5px 12px 0px rgba(161,161,161,0.1)",
@@ -350,12 +362,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="px-10">
+      <section className="px-4 xl:px-10">
         <div className="w-full max-w-[1479px] mx-auto">
           {/* ──────── INTRO TEXT ──────── */}
-          <FadeIn className="flex pt-[60px] pb-16">
-            <div className="w-[85%] flex flex-col gap-[30px]">
-              <p className="text-[30px] font-medium text-dark leading-[50px]">
+          <FadeIn className="flex pt-10 xl:pt-[60px] pb-10 xl:pb-16">
+            <div className="w-full xl:w-[85%] flex flex-col gap-5 xl:gap-[30px]">
+              <p className="text-[20px] leading-[35px] xl:text-[30px] font-medium text-dark xl:leading-[50px]">
                 Cleara is an AI powered platform designed for freelancers,
                 agencies, and independent consultants who want a{" "}
                 <span className="text-[rgba(26,26,26,0.7)]">
@@ -369,12 +381,12 @@ export default function LandingPage() {
           </FadeIn>
 
           {/* ──────── WHY CLEARA ──────── */}
-          <FadeIn id="features" className="flex justify- pb-20">
-            <div className="flex flex-col gap-[30px] w-full">
-              <p className="text-[20px] font-medium text-darker">
+          <FadeIn id="features" className="flex justify- pb-10 xl:pb-20">
+            <div className="flex flex-col gap-5 xl:gap-[30px] w-full">
+              <p className="text-[18px] xl:text-[20px] font-medium text-darker">
                 Why Cleara works better
               </p>
-              <div className="flex justify-between gap-8 flex-wrap w-full">
+              <div className="flex flex-col xl:flex-row gap-[25px] xl:gap-8 xl:flex-wrap w-full">
                 {whyClearaItems.map((item, i) => (
                   <div key={item} className="flex items-center gap-[12px]">
                     <div className="bg-surface-hover px-[14px] py-[8px] rounded-[6px]">
@@ -382,7 +394,7 @@ export default function LandingPage() {
                         {i + 1}
                       </span>
                     </div>
-                    <span className="text-[18px] font-normal text-darker whitespace-nowrap">
+                    <span className="text-[18px] font-normal text-darker xl:whitespace-nowrap">
                       {item}
                     </span>
                   </div>
@@ -392,7 +404,7 @@ export default function LandingPage() {
           </FadeIn>
 
           {/* ──────── FEATURES ──────── */}
-          <FadeIn id="how-it-works" className="pb-20">
+          <FadeIn id="how-it-works" className="pb-10 xl:pb-20">
             <div className="flex flex-col xl:flex-row items-center xl:items-start justify-between gap-x-[73px] gap-y-12">
               <div className="flex flex-col gap-[73px] w-full max-w-[648px] shrink-0">
                 <div className="flex flex-col gap-[20px] w-full max-w-[429px]">
@@ -400,7 +412,7 @@ export default function LandingPage() {
                     How Cleara Works
                   </p>
                   <div className="flex flex-col gap-[14px] text-darker">
-                    <p className="text-[30px] font-semibold leading-[27px]">
+                    <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[27px]">
                       One Workplace. One Workflow
                     </p>
                     <p className="text-[18px] font-normal leading-[25px]">
@@ -445,7 +457,7 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="relative rounded-[15px] overflow-hidden w-full max-w-[762px] aspect-[762/515] shrink-0">
+              <div className="relative rounded-[10px] xl:rounded-[15px] overflow-hidden w-full max-w-[390px] xl:max-w-[762px] aspect-[390/347] xl:aspect-[762/515] shrink-0">
                 <div className="absolute inset-0 overflow-hidden rounded-[15px]">
                   <img
                     src="/assets/screenshots/feature-preview.png"
@@ -479,12 +491,12 @@ export default function LandingPage() {
         id="testimonials"
         className="bg-primary py-20 xl:py-0 xl:h-[696px] flex items-center justify-center overflow-hidden"
       >
-        <div className="flex flex-col items-center w-full gap-[75px] px-10">
+        <div className="flex flex-col items-center w-full gap-[75px] px-4 xl:px-10">
           <div className="text-center text-white max-w-[529px]">
-            <p className="text-[30px] font-semibold leading-[29px]">
-              Real Results From Real Users.
+            <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[29px]">
+              Real Result From Real Users.
             </p>
-            <p className="mt-[15px] text-[18px] font-normal leading-[25px]">
+            <p className="mt-3 xl:mt-[15px] text-[18px] font-normal leading-[26px] xl:leading-[25px]">
               Discover how Cleara helps freelancers and agencies simplify
               documentation, project management, and client collaboration.
             </p>
@@ -620,14 +632,17 @@ export default function LandingPage() {
       </section>
 
       {/* ──────── PRICING ──────── */}
-      <FadeIn id="pricing" className="flex flex-col items-center py-20 px-10">
+      <FadeIn
+        id="pricing"
+        className="flex flex-col items-center py-20 px-4 xl:px-10"
+      >
         <div className="flex flex-col gap-[25px] items-center w-full max-w-[1287px]">
           <div className="flex flex-col gap-[25px] items-center w-full max-w-[492px]">
             <div className="text-center text-darker">
-              <p className="text-[30px] font-semibold leading-[29px]">
+              <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[29px]">
                 Transparent Pricing, No Surprises.
               </p>
-              <p className="mt-[15px] text-[18px] font-normal leading-[25px] max-w-[450px] mx-auto">
+              <p className="mt-3 xl:mt-[15px] text-[18px] font-normal leading-[26px] xl:leading-[25px] max-w-[450px] mx-auto">
                 Start small, upgrade when needed, and access the tools you need
                 to manage client work efficiently.
               </p>
@@ -739,13 +754,13 @@ export default function LandingPage() {
       </FadeIn>
 
       {/* ──────── COMPARISON TABLE ──────── */}
-      <FadeIn className="flex justify-center pb-20 px-10">
+      <FadeIn className="flex justify-center pb-20 px-4 xl:px-10">
         <div className="w-[1290px] max-w-[1479px] flex flex-col gap-[50px] items-center">
           <div className="text-center text-dark">
-            <p className="text-[30px] font-semibold leading-[39px]">
+            <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[39px]">
               Why Cleara Stands Out.
             </p>
-            <p className="mt-[14px] text-[18px] font-normal leading-[25px]">
+            <p className="mt-3 xl:mt-[14px] text-[18px] font-normal leading-[25px]">
               Spend less time switching tools and more time delivering great
               work.
             </p>
@@ -814,25 +829,25 @@ export default function LandingPage() {
         id="faqs"
         className="bg-surface-hover py-[100px] flex justify-center"
       >
-        <FadeIn className="w-[1290px] max-w-[1479px] px-10">
-          <div className="text-center text-dark mb-[50px]">
-            <p className="text-[30px] font-semibold leading-[29px]">
+        <FadeIn className="w-[1290px] max-w-[1479px] px-4 xl:px-10">
+          <div className="text-center text-dark mb-[30px] xl:mb-[50px]">
+            <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[29px]">
               Frequently Asked Questions
             </p>
-            <p className="mt-[15px] text-[18px] font-normal leading-[25px]">
+            <p className="mt-3 xl:mt-[15px] text-[18px] font-normal leading-[25px]">
               Everything you need to know about Cleara
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-16 gap-y-[30px] relative">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-x-16 gap-y-[30px] relative">
             {/* Vertical divider */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-black/10 hidden md:block" />
+            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-black/10 hidden xl:block" />
 
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className={`py-[30px] ${i < 4 ? "border-b border-black/10" : ""} ${
-                  i % 2 === 0 ? "pr-8" : "pl-8"
+                className={`py-[30px] border-b border-black/10 ${
+                  i % 2 === 0 ? "xl:pr-8" : "xl:pl-8"
                 }`}
               >
                 <p className="text-[18px] font-medium text-dark mb-[25px]">
@@ -848,10 +863,10 @@ export default function LandingPage() {
       </section>
 
       {/* ──────── FOOTER ──────── */}
-      <footer className="bg-primary-900 h-[511px] flex justify-center pt-[90px]">
-        <div className="w-full max-w-[1479px] px-10 flex flex-col">
-          <div className="flex gap-[481px] justify-between">
-            <div className="flex flex-col gap-[15px] w-[442px]">
+      <footer className="bg-primary-900 min-h-[511px] flex justify-center pt-10 xl:pt-[90px] pb-10">
+        <div className="w-full max-w-[1479px] px-5 xl:px-10 flex flex-col">
+          <div className="flex flex-col xl:flex-row gap-10 xl:gap-[481px] justify-between">
+            <div className="flex flex-col gap-[15px] w-full xl:w-[442px]">
               <div className="flex items-center gap-[5px]">
                 <img
                   src="/assets/icons/ai-generate-footer.svg"
@@ -869,7 +884,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="flex gap-[120px] text-white">
+            <div className="flex flex-wrap gap-8 xl:gap-[120px] text-white">
               <div className="flex flex-col gap-[12px]">
                 <p className="text-[16px] font-medium">Platform</p>
                 <div className="flex flex-col gap-[8px] text-[14px] font-normal">
@@ -898,10 +913,10 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="w-full h-px bg-white/20 my-[50px]" />
+          <div className="w-full h-px bg-white/20 my-[30px] xl:my-[50px]" />
 
-          <div className="flex items-end justify-between">
-            <div className="flex flex-col gap-[14px] w-[388px]">
+          <div className="flex flex-col xl:flex-row items-start xl:items-end justify-between gap-6 xl:gap-0">
+            <div className="flex flex-col gap-[14px] w-full xl:w-[388px]">
               <p className="text-[16px] font-normal text-white">
                 Be a part of our community
               </p>
@@ -909,14 +924,14 @@ export default function LandingPage() {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="bg-transparent text-[14px] font-normal text-white placeholder:text-white/60 outline-none flex-1"
+                  className="bg-transparent text-[14px] font-normal text-white placeholder:text-white/60 outline-none flex-1 min-w-0"
                 />
-                <button className="bg-white text-black text-[14px] font-medium px-[28px] py-[11px] rounded-[41px]">
+                <button className="bg-white text-black text-[14px] font-medium px-[28px] py-[11px] rounded-[41px] shrink-0">
                   Subscribe
                 </button>
               </div>
             </div>
-            <div className="flex items-center gap-[328px]">
+            <div className="flex flex-col-reverse xl:flex-row items-start xl:items-center gap-4 xl:gap-[328px] w-full xl:w-auto">
               <p className="text-[14px] font-light text-white">
                 © 2025 Docwrite. All rights reserved.
               </p>
@@ -974,7 +989,7 @@ export default function LandingPage() {
                 <img
                   src="/assets/icons/hero-vector.svg"
                   alt=""
-                  className="absolute inset-0 w-full h-full max-w-none"
+                  className="absolute w-[300%] h-[300%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-none"
                 />
               </div>
 
@@ -991,8 +1006,8 @@ export default function LandingPage() {
               </button>
 
               {/* Header */}
-              <div className="relative z-[1] flex flex-col items-center text-center pt-[50px] px-5">
-                <p className="text-[24px] font-semibold text-black leading-[24px]">
+              <div className="relative z-[1] flex flex-col items-center text-center pt-[30px] xl:pt-[50px] px-5">
+                <p className="text-[20px] xl:text-[24px] font-semibold text-black leading-[24px]">
                   Get Early Access to Cleara
                 </p>
                 <p className="mt-[12px] text-[14px] font-normal text-black leading-[18px] max-w-[357px]">
@@ -1002,8 +1017,8 @@ export default function LandingPage() {
               </div>
 
               {/* Inner card */}
-              <div className="relative z-[1] mx-[63px] mt-[30px] bg-white/60 rounded-[10px] overflow-hidden">
-                <div className="bg-gradient-to-b from-[rgba(215,233,235,0.5)] to-[rgba(122,132,133,0)] mx-[7px] my-[7px] rounded-[10px] flex flex-col items-center pt-[25px] pb-[27px]">
+              <div className="relative z-[1] mx-5 xl:mx-[63px] mt-[20px] xl:mt-[30px] bg-white/60 rounded-[10px] overflow-hidden">
+                <div className="bg-gradient-to-b from-[rgba(215,233,235,0.5)] to-[rgba(122,132,133,0)] mx-[7px] my-[7px] rounded-[10px] flex flex-col items-center pt-[25px] pb-[27px] px-4">
                   <p className="text-[16px] font-semibold text-black leading-[16px]">
                     Join the waitlist
                   </p>
@@ -1012,11 +1027,11 @@ export default function LandingPage() {
                   </p>
 
                   {/* Email input */}
-                  <div className="flex items-center bg-[rgba(255,255,255,0.83)] border border-[rgba(53,145,155,0.15)] rounded-[50px] h-[50px] w-[340px] mt-[36px]">
+                  <div className="flex items-center bg-[rgba(255,255,255,0.83)] border border-[rgba(53,145,155,0.15)] rounded-[50px] h-[50px] w-full max-w-[340px] mt-[36px]">
                     <input
                       type="email"
                       placeholder="Enter your email"
-                      className="flex-1 bg-transparent text-[14px] text-black placeholder:text-black/50 outline-none pl-[25px] pr-2"
+                      className="flex-1 bg-transparent text-[14px] text-black placeholder:text-black/50 outline-none pl-[25px] pr-2 min-w-0"
                     />
                     <button
                       onClick={() => setShowWaitlist(false)}
