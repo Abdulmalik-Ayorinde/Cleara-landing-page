@@ -220,33 +220,33 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex justify-between items-center bg-white rounded-[45px] xl:rounded-[39px] w-full max-w-[500px] xl:max-w-214.5 h-[58px] xl:h-auto py-0 xl:py-3.5 px-[14px] xl:px-4.25"
+            className="flex justify-between items-center bg-white rounded-[45px] md:rounded-[39px] w-full max-w-[500px] md:max-w-214.5 h-[58px] md:h-auto py-0 md:py-3.5 px-[14px] md:px-4.25"
           >
             <div className="flex items-center gap-[5px]">
-              <div className="xl:size-12 xl:bg-primary xl:rounded-[30px] flex items-center justify-center">
+              <div className="md:size-12 md:bg-primary md:rounded-[30px] flex items-center justify-center">
                 <img
                   src="/assets/icons/logo-icon-mobile.svg"
                   alt=""
-                  className="size-[25px] xl:hidden"
+                  className="size-[25px] md:hidden"
                 />
                 <img
                   src="/assets/icons/ai-generate.svg"
                   alt=""
-                  className="hidden xl:block size-7.75"
+                  className="hidden md:block size-7.75"
                 />
               </div>
-              <span className="text-[20px] xl:hidden font-medium text-primary leading-normal">
+              <span className="text-[20px] md:hidden font-medium text-primary leading-normal">
                 Cleara
               </span>
             </div>
-            <button className="xl:hidden size-[30px] flex items-center justify-center">
+            <button className="md:hidden size-[30px] flex items-center justify-center">
               <img
                 src="/assets/icons/menu-hamburger.svg"
                 alt="Menu"
                 className="size-full"
               />
             </button>
-            <div className="hidden xl:flex items-center gap-[35px] text-[17px] leading-[20px] text-dark">
+            <div className="hidden md:flex items-center gap-[35px] text-[17px] leading-[20px] text-dark">
               <a href="#features" className="font-medium">
                 Features
               </a>
@@ -263,7 +263,7 @@ export default function LandingPage() {
                 FAQs
               </a>
             </div>
-            <button className="hidden xl:block bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]">
+            <button className="hidden md:block bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]">
               Sign In
             </button>
           </motion.nav>
