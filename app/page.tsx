@@ -35,7 +35,7 @@ const featureCards = [
   },
   {
     icon: "/assets/icons/collaborate.svg",
-    title: "Client Collaboration",
+    title:   "Client Collaboration",
     description:
       "Reduce back and forth communication by giving clients direct access to project updates, milestones, and deliverables whenever they need.",
   },
@@ -204,6 +204,7 @@ export default function LandingPage() {
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [activeFeature, setActiveFeature] = useState(0);
+  const [showWaitlist, setShowWaitlist] = useState(false);
 
   return (
     <main className="overflow-x-hidden">
@@ -317,7 +318,7 @@ export default function LandingPage() {
               </p>
             </div>
             <div className="flex items-center gap-[12px]">
-              <button className="bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]">
+              <button onClick={() => setShowWaitlist(true)} className="bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]">
                 Join Waitlist
               </button>
               <button className="border border-dark flex items-center gap-[10px] px-[22px] py-[13px] rounded-[30px] text-[16px] text-dark font-normal">
@@ -943,6 +944,110 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
+
+      {/* ──────── WAITLIST MODAL ──────── */}
+      <AnimatePresence>
+        {showWaitlist && (
+          <motion.div
+            key="waitlist-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setShowWaitlist(false)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(26,26,26,0.12)] backdrop-blur-[7.5px]"
+          >
+            <motion.div
+              key="waitlist-modal"
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative bg-white rounded-[10px] w-full max-w-[607px] overflow-hidden"
+              style={{ minHeight: "452px" }}
+            >
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <img
+                  src="/assets/icons/hero-vector.svg"
+                  alt=""
+                  className="absolute w-[1618px] h-[153.5px] left-1/2 -translate-x-1/2 top-[95px] max-w-none"
+                />
+              </div>
+
+              <button
+                onClick={() => setShowWaitlist(false)}
+                className="absolute top-[20px] right-[20px] z-10 size-[32px] flex items-center justify-center rounded-full hover:bg-surface-hover transition-colors"
+              >
+                <img
+                  src="/assets/icons/cancel.svg"
+                  alt="Close"
+                  className="size-[16px]"
+                />
+              </button>
+
+              <div className="relative z-[1] flex flex-col items-center text-center pt-[50px] px-10">
+                <p className="text-[24px] font-semibold leading-[24px] text-black max-w-[357px]">
+                  Get Early Access to Cleara
+                </p>
+                <p className="mt-[12px] text-[14px] font-normal leading-[14px] text-black max-w-[357px]">
+                  Sign up for early access and discover how one unified workspace
+                  can transform the way you work with clients.
+                </p>
+              </div>
+
+              <div className="relative z-[1] mx-[63px] mt-[25px] mb-[30px] bg-white/60 rounded-[10px] overflow-hidden">
+                <div className="bg-gradient-to-b from-primary-100/20 to-transparent mx-[7px] mt-[7px] mb-[7px] rounded-[10px] flex flex-col items-center pt-[25px] pb-[20px]">
+                  <p className="text-[16px] font-semibold leading-[16px] text-black">
+                    Join the waitlist
+                  </p>
+                  <p className="mt-[10px] text-[14px] font-normal leading-[14px] text-black">
+                    Sign up now for early notification upon launch.
+                  </p>
+
+                  <div className="mt-[20px] flex items-center bg-[rgba(255,255,255,0.83)] border border-primary-100/15 rounded-[50px] h-[50px] w-[340px] max-w-full">
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      className="flex-1 bg-transparent text-[14px] text-black placeholder:text-black/50 outline-none pl-[25px] pr-2"
+                    />
+                    <button
+                      onClick={() => setShowWaitlist(false)}
+                      className="bg-primary text-white text-[14px] font-medium leading-[14px] px-[20px] py-[11px] rounded-[50px] mr-[4px] shrink-0 hover:bg-primary-700 transition-colors"
+                    >
+                      Join Waitlist
+                    </button>
+                  </div>
+
+                  <div className="mt-[20px] flex items-center gap-[8px]">
+                    <a href="#">
+                      <img
+                        src="/assets/icons/linkedin.svg"
+                        alt="LinkedIn"
+                        className="size-[24px]"
+                      />
+                    </a>
+                    <a href="#">
+                      <img
+                        src="/assets/icons/x-twitter.svg"
+                        alt="X"
+                        className="w-[21px] h-[24px]"
+                      />
+                    </a>
+                    <a href="#">
+                      <img
+                        src="/assets/icons/tiktok.svg"
+                        alt="TikTok"
+                        className="size-[24px]"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
