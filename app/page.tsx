@@ -958,7 +958,7 @@ export default function LandingPage() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={() => setShowWaitlist(false)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(26,26,26,0.12)] backdrop-blur-[7.5px] px-4 overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(26,26,26,0.12)] backdrop-blur-[7.5px] px-4"
           >
             <motion.div
               key="waitlist-modal"
@@ -1002,8 +1002,8 @@ export default function LandingPage() {
               </div>
 
               {/* Inner card */}
-              <div className="relative z-[1] mx-[63px] mt-[55px] bg-white/60 rounded-[10px] overflow-hidden">
-                <div className="bg-gradient-to-b from-[rgba(215,233,235,0.2)] to-[rgba(122,132,133,0)] mx-[7px] my-[7px] rounded-[10px] flex flex-col items-center pt-[25px] pb-[27px]">
+              <div className="relative z-[1] mx-[63px] mt-[30px] bg-white/60 rounded-[10px] overflow-hidden">
+                <div className="bg-gradient-to-b from-[rgba(215,233,235,0.5)] to-[rgba(122,132,133,0)] mx-[7px] my-[7px] rounded-[10px] flex flex-col items-center pt-[25px] pb-[27px]">
                   <p className="text-[16px] font-semibold text-black leading-[16px]">
                     Join the waitlist
                   </p>
@@ -1030,21 +1030,21 @@ export default function LandingPage() {
                   <div className="flex items-center gap-[8px] mt-[25px]">
                     <a href="#">
                       <img
-                        src="/assets/icons/linkedin.svg"
+                        src="/assets/icons/linkedin-primary.svg"
                         alt="LinkedIn"
                         className="size-[24px]"
                       />
                     </a>
                     <a href="#">
                       <img
-                        src="/assets/icons/x-twitter.svg"
+                        src="/assets/icons/x-twitter-primary.svg"
                         alt="X"
                         className="w-[21px] h-[24px]"
                       />
                     </a>
                     <a href="#">
                       <img
-                        src="/assets/icons/tiktok.svg"
+                        src="/assets/icons/tiktok-primary.svg"
                         alt="TikTok"
                         className="size-[24px]"
                       />
