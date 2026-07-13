@@ -53,7 +53,7 @@ const featureImages = [
   },
   {
     bg: "/assets/screenshots/feature-preview.png",
-    inset: "/assets/screenshots/collaboration-inset.png",
+    inset: "/assets/screenshots/collaboration-export.png",
   },
 ];
 
@@ -206,6 +206,8 @@ export default function LandingPage() {
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [activeFeature, setActiveFeature] = useState(0);
   const [showWaitlist, setShowWaitlist] = useState(false);
+  const [openFaq, setOpenFaq] = useState(-1);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <main className="overflow-x-hidden">
@@ -240,7 +242,10 @@ export default function LandingPage() {
                 Cleara
               </span>
             </div>
-            <button className="md:hidden size-[30px] flex items-center justify-center">
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="md:hidden size-[30px] flex items-center justify-center"
+            >
               <img
                 src="/assets/icons/menu-hamburger.svg"
                 alt="Menu"
@@ -269,7 +274,65 @@ export default function LandingPage() {
             </button>
           </motion.nav>
 
-          {/* Marquee */}
+          {/* Mobile full-screen menu */}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="fixed inset-0 z-50 md:hidden"
+              >
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-md" />
+                <motion.div
+                  initial={{ x: "100%" }}
+                  animate={{ x: 0 }}
+                  exit={{ x: "100%" }}
+                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                  className="absolute right-0 top-0 h-full w-[85%] max-w-[360px] bg-white shadow-2xl flex flex-col"
+                >
+                  <div className="flex items-center justify-between px-5 pt-5 pb-3">
+                    <div className="flex items-center gap-[5px]">
+                      <img
+                        src="/assets/icons/logo-icon-mobile.svg"
+                        alt=""
+                        className="size-[25px]"
+                      />
+                      <span className="text-[20px] font-medium text-primary leading-normal">
+                        Cleara
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="size-[30px] flex items-center justify-center"
+                    >
+                      <img
+                        src="/assets/icons/cancel.svg"
+                        alt="Close"
+                        className="size-full"
+                      />
+                    </button>
+                  </div>
+                  <nav className="flex flex-col gap-[30px] px-5 pt-8 pb-10">
+                    {navLinks.map((link) => (
+                      <a
+                        key={link}
+                        href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="text-[16px] font-medium text-dark hover:text-primary transition-colors"
+                      >
+                        {link}
+                      </a>
+                    ))}
+                    <button className="w-full bg-primary text-white text-[16px] font-normal py-[15px] rounded-[30px] leading-[22px] mt-4">
+                      Sign In
+                    </button>
+                  </nav>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
           <div className="mt-[48px] xl:mt-23.5 border border-[rgba(31,31,31,0.45)] rounded-[56px] w-full max-w-[347px] xl:max-w-101.75 py-3 xl:py-[13px] px-[19px] flex items-center">
             <motion.div
               initial={{ opacity: 0 }}
@@ -446,8 +509,8 @@ export default function LandingPage() {
                       <Image
                         src={featureImages[i].inset}
                         alt=""
-                        width={500}
-                        height={500}
+                        width={1000}
+                        height={10x00}
                         className="h-[100.05%] w-full"
                       />
                     </div>
@@ -554,7 +617,7 @@ export default function LandingPage() {
       {/* ──────── TESTIMONIALS ──────── */}
       <section
         id="testimonials"
-        className="bg-primary py-20 xl:py-0 xl:h-[696px] flex items-center justify-center overflow-hidden"
+        className="bg-primary py-[60px] xl:py-0 xl:h-[696px] flex items-center justify-center overflow-hidden"
       >
         <div className="flex flex-col items-center w-full gap-[75px] px-4 xl:px-10">
           <div className="text-center text-white max-w-[529px]">
@@ -743,7 +806,7 @@ export default function LandingPage() {
       {/* ──────── PRICING ──────── */}
       <FadeIn
         id="pricing"
-        className="flex flex-col items-center py-20 px-4 xl:px-10"
+        className="flex flex-col items-center py-[60px] px-4 xl:px-10"
       >
         <div className="flex flex-col gap-[25px] items-center w-full max-w-[1287px]">
           <div className="flex flex-col gap-[25px] items-center w-full max-w-[492px]">
@@ -758,7 +821,7 @@ export default function LandingPage() {
             </div>
 
             {/* Billing toggle */}
-            <div className="border border-primary-100 rounded-[10px] h-[50px] overflow-hidden flex w-[351px] shrink-0">
+            <div className="border border-primary-100 rounded-[10px] h-[50px] overflow-hidden flex w-full max-w-[356px] md:w-[351px] shrink-0">
               <button
                 onClick={() => setBilling("monthly")}
                 className={`w-[133px] text-center text-[16px] font-medium leading-[18px] transition-colors ${
@@ -780,41 +843,43 @@ export default function LandingPage() {
                 <span className="text-[16px] font-medium leading-[18px]">
                   YEARLY
                 </span>
-                <span className="text-[12px] font-normal">SAVE UP TO 40%</span>
+                <span className="text-[10px] sm:text-[12px] font-normal">
+                  SAVE UP TO 40%
+                </span>
               </button>
             </div>
           </div>
 
-          <div className="flex gap-[30px] justify-center flex-wrap">
+          <div className="flex flex-col gap-[24px] md:flex-row md:gap-[30px] md:flex-wrap md:justify-center w-full">
             {plans.map((plan) => (
               <div
                 key={plan.name}
-                className={`rounded-[10px] w-[409px] max-w-full overflow-hidden ${
+                className={`rounded-[10px] w-full md:w-[409px] overflow-hidden ${
                   plan.featured
                     ? "bg-primary border border-[rgba(255,255,255,0.31)]"
                     : "bg-white border border-[rgba(26,26,26,0.3)]"
                 }`}
               >
-                <div className="p-[27px] flex flex-col gap-[40px]">
+                <div className="p-[24px] md:p-[27px] flex flex-col gap-[22px] md:gap-[40px]">
                   <div
-                    className={`flex flex-col gap-[20px] ${plan.featured ? "text-white" : "text-dark"}`}
+                    className={`flex flex-col gap-[14px] md:gap-[20px] ${plan.featured ? "text-white" : "text-dark"}`}
                   >
                     <div>
-                      <p className="text-[20px] font-medium leading-[1.2]">
+                      <p className="text-[20px] font-medium leading-[28px]">
                         {plan.name}
                       </p>
-                      <p className="mt-[17px] leading-[1.1]">
-                        <span className="text-[40px] font-semibold">
+                      <p className="mt-[12px] leading-[40px]">
+                        <span className="text-[36px] md:text-[40px] font-semibold">
                           $
                           {billing === "monthly"
                             ? plan.price.monthly
                             : plan.price.yearly}
                           /
                         </span>
-                        <span className="text-[20px] font-semibold">month</span>
+                        <span className="text-[20px] font-medium">month</span>
                       </p>
                     </div>
-                    <p className="text-[18px] font-normal leading-[1.4]">
+                    <p className="text-[16px] font-normal leading-[24px]">
                       {plan.description}
                     </p>
                   </div>
@@ -863,8 +928,8 @@ export default function LandingPage() {
       </FadeIn>
 
       {/* ──────── COMPARISON TABLE ──────── */}
-      <FadeIn className="flex justify-center pb-20 px-4 xl:px-10">
-        <div className="w-[1290px] max-w-[1479px] flex flex-col gap-[50px] items-center">
+      <FadeIn className="flex justify-center py-[60px] px-4 xl:px-10">
+        <div className="w-full max-w-[1479px] flex flex-col gap-[50px] items-center">
           <div className="text-center text-dark">
             <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[39px]">
               Why Cleara Stands Out.
@@ -876,31 +941,25 @@ export default function LandingPage() {
           </div>
 
           <div className="overflow-x-auto w-full">
-            <div className="grid grid-cols-[1fr_1fr_1fr] min-w-[700px] rounded-[10px] overflow-hidden">
+            <div className="grid grid-cols-3 w-full rounded-[10px] overflow-hidden text-[13px] md:text-[20px]">
               {/* Header row */}
               <div className="text-center py-[23px] bg-surface border border-[rgba(26,26,26,0.1)]">
-                <span className="text-[20px] font-medium text-black">
-                  Features
-                </span>
+                <span className="font-medium text-black">Features</span>
               </div>
               <div className="text-center py-[23px] bg-primary border-y border-white/20">
-                <span className="text-[20px] font-medium text-white">
-                  Cleara
-                </span>
+                <span className="font-medium text-white">Cleara</span>
               </div>
               <div className="text-center py-[23px] bg-primary-700 border-y border-white/20">
-                <span className="text-[20px] font-medium text-white">
-                  Others
-                </span>
+                <span className="font-medium text-white">Others</span>
               </div>
 
               {/* Data rows */}
               {comparisonFeatures.map((feat, idx) => (
                 <Fragment key={idx}>
-                  <div className="py-[19px] px-6 text-center text-[18px] font-normal text-black bg-surface flex items-center justify-center border-x border-[rgba(26,26,26,0.1)]">
+                  <div className="py-[19px] px-6 text-center text-[13px] md:text-[18px] font-normal text-black bg-surface flex items-center justify-center border-x border-[rgba(26,26,26,0.1)]">
                     {feat}
                   </div>
-                  <div className="py-[19px] flex items-center justify-center bg-primary">
+                  <div className="px-6 py-[19px] flex items-center justify-center text-center bg-primary">
                     <img
                       src={
                         comparisonCleara[idx]
@@ -911,7 +970,7 @@ export default function LandingPage() {
                       className="size-[24px]"
                     />
                   </div>
-                  <div className="py-[19px] flex items-center justify-center text-[18px] font-normal text-white bg-primary-700">
+                  <div className="px-6 py-[19px] flex items-center justify-center text-[13px] text-center md:text-[18px] font-normal text-white bg-primary-700">
                     {typeof comparisonOthers[idx] === "boolean" ? (
                       <img
                         src={
@@ -936,7 +995,7 @@ export default function LandingPage() {
       {/* ──────── FAQ ──────── */}
       <section
         id="faqs"
-        className="bg-surface-hover py-[100px] flex justify-center"
+        className="bg-surface-hover py-[60px] flex justify-center"
       >
         <FadeIn className="w-[1290px] max-w-[1479px] px-4 xl:px-10">
           <div className="text-center text-dark mb-[30px] xl:mb-[50px]">
@@ -955,16 +1014,40 @@ export default function LandingPage() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className={`py-[30px] border-b border-black/10 ${
+                className={`py-[30px] not-last:border-b border-black/10 ${
                   i % 2 === 0 ? "xl:pr-8" : "xl:pl-8"
                 }`}
               >
-                <p className="text-[18px] font-medium text-dark mb-[25px]">
-                  {faq.q}
-                </p>
-                <p className="text-[16px] font-normal text-[rgba(26,26,26,0.8)] leading-[25px]">
-                  {faq.a}
-                </p>
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
+                  className="flex items-center justify-between w-full text-left"
+                >
+                  <p className="text-[18px] font-medium text-dark max-w-[80%]">
+                    {faq.q}
+                  </p>
+                  <motion.img
+                    src="/assets/icons/chevron-down.svg"
+                    alt="Toggle"
+                    className="size-[24px] shrink-0 ml-4"
+                    animate={{ rotate: openFaq === i ? 180 : 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  />
+                </button>
+                <AnimatePresence initial={false}>
+                  {openFaq === i && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <p className="text-[16px] font-normal text-[rgba(26,26,26,0.8)] leading-[25px] pt-[25px]">
+                        {faq.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ))}
           </div>
@@ -972,7 +1055,7 @@ export default function LandingPage() {
       </section>
 
       {/* ──────── FOOTER ──────── */}
-      <footer className="bg-primary-900 min-h-[511px] flex justify-center pt-10 xl:pt-[90px] pb-10">
+      <footer className="bg-primary-900 min-h-[511px] flex justify-center py-[50px] xl:pt-[90px]">
         <div className="w-full max-w-[1479px] px-5 xl:px-10 flex flex-col">
           <div className="flex flex-col xl:flex-row gap-10 xl:gap-[481px] justify-between">
             <div className="flex flex-col gap-[15px] w-full xl:w-[442px]">
@@ -993,7 +1076,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-8 xl:gap-[120px] text-white">
+            <div className="flex flex-wrap justify-between gap-8 xl:gap-[120px] text-white">
               <div className="flex flex-col gap-[12px]">
                 <p className="text-[16px] font-medium">Platform</p>
                 <div className="flex flex-col gap-[8px] text-[14px] font-normal">
@@ -1022,29 +1105,27 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="w-full h-px bg-white/20 my-[30px] xl:my-[50px]" />
-
-          <div className="flex flex-col xl:flex-row items-start xl:items-end justify-between gap-6 xl:gap-0">
+          <div className="mt-[40px] flex flex-col xl:flex-row items-start xl:items-end justify-between xl:gap-0">
             <div className="flex flex-col gap-[14px] w-full xl:w-[388px]">
               <p className="text-[16px] font-normal text-white">
                 Be a part of our community
               </p>
-              <div className="border border-white/20 rounded-[51px] h-[49px] flex items-center justify-between pl-[19px] pr-[3px]">
+              <div className="relative border border-white/20 rounded-[51px] h-[49px] flex items-center justify-between p-[4px] pr-10">
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="bg-transparent text-[14px] font-normal text-white placeholder:text-white/60 outline-none flex-1 min-w-0"
+                  className="rounded-[51px] px-4 pr-26 h-full bg-transparent text-[14px] font-normal text-white placeholder:text-white/60 outline-none flex-1 min-w-0"
                 />
-                <button className="bg-white text-black text-[14px] font-medium px-[28px] py-[11px] rounded-[41px] shrink-0">
+                <button className="absolute right-[4px] bg-white text-black text-[14px] font-medium px-[28px] py-[9px] rounded-[41px] shrink-0">
                   Subscribe
                 </button>
               </div>
             </div>
-            <div className="flex flex-col-reverse xl:flex-row items-start xl:items-center gap-4 xl:gap-[328px] w-full xl:w-auto">
-              <p className="text-[14px] font-light text-white">
-                © 2025 Docwrite. All rights reserved.
-              </p>
-              <div className="flex items-center gap-[10px]">
+
+            <div className="w-full h-px bg-white/20 my-[35px] xl:my-[50px]" />
+
+            <div className="flex flex-col-reverse xl:flex-row items-center gap-5 xl:gap-[328px] w-full xl:w-auto">
+              <div className="flex items-center justify-center gap-[10px]">
                 <a href="#">
                   <img
                     src="/assets/icons/linkedin.svg"
@@ -1067,6 +1148,9 @@ export default function LandingPage() {
                   />
                 </a>
               </div>
+              <p className="text-[14px] font-light text-white">
+                © 2025 Docwrite. All rights reserved.
+              </p>
             </div>
           </div>
         </div>
