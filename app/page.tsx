@@ -410,7 +410,46 @@ export default function LandingPage() {
 
           {/* ──────── FEATURES ──────── */}
           <FadeIn id="how-it-works" className="pb-10 xl:pb-20">
-            <div className="flex flex-col xl:flex-row xl:items-start justify-between gap-x-[73px] gap-y-12">
+            {/* Mobile: 3 stacked cards with embedded images */}
+            <div className="flex flex-col gap-[30px] md:hidden">
+              {featureCards.map((card, i) => (
+                <div key={card.title} className="flex flex-col gap-[25px] w-full">
+                  <div className="bg-[#1a1a1a] border border-[rgba(50,138,147,0.2)] h-[347px] overflow-clip relative rounded-[10px] w-full">
+                    <div className="absolute -translate-x-1/2 h-[381px] left-1/2 rounded-[15px] top-[-18px] w-[407px] overflow-hidden pointer-events-none">
+                      <img
+                        src="/assets/screenshots/feature-preview.png"
+                        alt=""
+                        className="absolute w-[152.54%] h-[302.29%] left-[-46.64%] top-[-49.08%] max-w-none"
+                      />
+                      <div className="absolute inset-0 bg-black/7" />
+                    </div>
+                    <div className="absolute left-[9px] rounded-[5px] top-[9px] w-[792px] h-[507px] overflow-hidden pointer-events-none">
+                      <img
+                        src={featureImages[i].inset}
+                        alt=""
+                        className="h-[100.05%] w-full"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-[15px] w-full">
+                    <div className="flex items-center gap-[12px]">
+                      <div className="bg-primary h-[28px] w-[32px] rounded-[5px] flex items-center justify-center">
+                        <img src={card.icon} alt="" className="size-[18px]" />
+                      </div>
+                      <span className="text-[18px] font-medium leading-[22px] text-[#1a1a1a]">
+                        {card.title}
+                      </span>
+                    </div>
+                    <p className="text-[16px] font-normal leading-[normal] text-[#1a1a1a]">
+                      {card.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop: accordion + shared preview */}
+            <div className="hidden md:flex flex-col xl:flex-row xl:items-start justify-between gap-x-[73px] gap-y-12">
               <div className="flex flex-col gap-[73px] w-full max-w-[648px] shrink-0">
                 <div className="flex flex-col gap-[20px] w-full max-w-[429px]">
                   <p className="text-[18px] font-normal leading-[20px] text-darker">
@@ -462,7 +501,7 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="relative rounded-[10px] xl:rounded-[15px] overflow-hidden w-full max-w-[390px] xl:max-w-[762px] aspect-[390/347] xl:aspect-[762/515] shrink-0">
+              <div className="relative rounded-[15px] overflow-hidden w-full max-w-[762px] aspect-[762/515] shrink-0">
                 <div className="absolute inset-0 overflow-hidden rounded-[15px]">
                   <img
                     src="/assets/screenshots/feature-preview.png"
