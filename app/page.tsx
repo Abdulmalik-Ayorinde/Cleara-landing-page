@@ -1014,7 +1014,7 @@ export default function LandingPage() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className={`py-[30px] not-last:border-b border-black/10 ${
+                className={`py-[30px] not-last:border-b xl:border-b border-black/10 ${
                   i % 2 === 0 ? "xl:pr-8" : "xl:pl-8"
                 }`}
               >
