@@ -4,6 +4,7 @@
 
 import { useState, Fragment } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const navLinks = [
   "Features",
@@ -367,10 +368,10 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="px-4 xl:px-10">
+      <section className="px-4 xl:px-10 ">
         <div className="w-full max-w-[1479px] mx-auto">
           {/* ──────── INTRO TEXT ──────── */}
-          <FadeIn className="flex pt-10 xl:pt-[60px] pb-10 xl:pb-16">
+          <FadeIn className="flex pt-10 pb-[60px] xl:pt-[60px] xl:pb-16">
             <div className="w-full xl:w-[85%] flex flex-col gap-5 xl:gap-[30px]">
               <p className="text-[20px] leading-[35px] xl:text-[30px] font-medium text-dark xl:leading-[50px]">
                 Cleara is an AI powered platform designed for freelancers,
@@ -386,12 +387,12 @@ export default function LandingPage() {
           </FadeIn>
 
           {/* ──────── WHY CLEARA ──────── */}
-          <FadeIn id="features" className="flex justify- pb-10 xl:pb-20">
+          <FadeIn id="features" className="flex pb-[60px] xl:pb-20">
             <div className="flex flex-col gap-5 xl:gap-[30px] w-full">
               <p className="text-[18px] xl:text-[20px] font-medium text-darker">
                 Why Cleara works better
               </p>
-              <div className="flex flex-col xl:flex-row gap-[25px] xl:gap-8 xl:flex-wrap w-full">
+              <div className="flex flex-row gap-[25px] xl:gap-8 flex-wrap w-full">
                 {whyClearaItems.map((item, i) => (
                   <div key={item} className="flex items-center gap-[12px]">
                     <div className="bg-surface-hover px-[14px] py-[8px] rounded-[6px]">
@@ -428,20 +429,25 @@ export default function LandingPage() {
                 </div>
               </div>
               {featureCards.map((card, i) => (
-                <div key={card.title} className="flex flex-col gap-[25px] w-full">
-                  <div className="bg-[#1a1a1a] border border-[rgba(50,138,147,0.2)] h-[347px] overflow-clip relative rounded-[10px] w-full">
-                    <div className="absolute -translate-x-1/2 h-[381px] left-1/2 rounded-[15px] top-[-18px] w-[407px] overflow-hidden pointer-events-none">
-                      <img
-                        src="/assets/screenshots/feature-preview.png"
-                        alt=""
-                        className="absolute w-[152.54%] h-[302.29%] left-[-46.64%] top-[-49.08%] max-w-none"
-                      />
-                      <div className="absolute inset-0 bg-black/7" />
-                    </div>
+                <div
+                  key={card.title}
+                  className="flex flex-col gap-[25px] w-full"
+                >
+                  <div className="border border-[rgba(50,138,147,0.2)] h-[347px] overflow-clip relative rounded-[10px] w-full">
+                    <Image
+                      src="/assets/screenshots/feature-preview.png"
+                      alt=""
+                      width={500}
+                      height={500}
+                      className="absolute -translate-x-1/2 h-[381px] left-1/2 rounded-[10px] top-[-18px] w-full overflow-hidden pointer-events-none object-cover"
+                    />
+
                     <div className="absolute left-[9px] rounded-[5px] top-[9px] w-[792px] h-[507px] overflow-hidden pointer-events-none">
-                      <img
+                      <Image
                         src={featureImages[i].inset}
                         alt=""
+                        width={500}
+                        height={500}
                         className="h-[100.05%] w-full"
                       />
                     </div>
@@ -465,8 +471,8 @@ export default function LandingPage() {
 
             {/* Desktop: accordion + shared preview */}
             <div className="hidden md:flex flex-col xl:flex-row xl:items-start justify-between gap-x-[73px] gap-y-12">
-              <div className="flex flex-col gap-[73px] w-full max-w-[648px] shrink-0">
-                <div className="flex flex-col gap-[20px] w-full max-w-[429px]">
+              <div className="flex flex-col gap-[73px] w-full xl:max-w-[648px] xl:shrink-0">
+                <div className="flex flex-col gap-[20px] w-full xl:max-w-[429px]">
                   <p className="text-[18px] font-normal leading-[20px] text-darker">
                     How Cleara Works
                   </p>
@@ -516,7 +522,7 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="relative rounded-[15px] overflow-hidden w-full max-w-[762px] aspect-[762/515] shrink-0">
+              <div className="relative rounded-[15px] overflow-hidden w-full md:aspect-[16/9] xl:max-w-[762px] xl:aspect-[762/515] shrink-0">
                 <div className="absolute inset-0 overflow-hidden rounded-[15px]">
                   <img
                     src="/assets/screenshots/feature-preview.png"
