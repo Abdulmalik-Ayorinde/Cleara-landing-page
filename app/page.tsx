@@ -412,6 +412,21 @@ export default function LandingPage() {
           <FadeIn id="how-it-works" className="pb-10 xl:pb-20">
             {/* Mobile: 3 stacked cards with embedded images */}
             <div className="flex flex-col gap-[30px] md:hidden">
+              {/* How Cleara Works header */}
+              <div className="flex flex-col gap-[20px] w-full text-[#1a1a1a]">
+                <p className="text-[18px] font-normal leading-[20px]">
+                  How Cleara Works
+                </p>
+                <div className="flex flex-col gap-[12px] leading-[25px]">
+                  <p className="text-[24px] font-medium">
+                    One Workplace . One Workflow
+                  </p>
+                  <p className="text-[18px] font-normal">
+                    Generate, manage, and deliver client work without switching
+                    between tools.
+                  </p>
+                </div>
+              </div>
               {featureCards.map((card, i) => (
                 <div key={card.title} className="flex flex-col gap-[25px] w-full">
                   <div className="bg-[#1a1a1a] border border-[rgba(50,138,147,0.2)] h-[347px] overflow-clip relative rounded-[10px] w-full">
