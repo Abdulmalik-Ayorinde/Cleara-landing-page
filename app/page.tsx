@@ -567,10 +567,96 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="relative w-full max-w-[1479px]">
+          {/* Mobile: carousel without outer wrapper */}
+          <div className="flex flex-col gap-[24px] w-full xl:hidden">
+            <div className="bg-white min-h-[224px] rounded-[10px] w-full">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={testimonialIdx}
+                  initial={{ opacity: 0, x: 60 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -60 }}
+                  transition={{ duration: 0.35 }}
+                  className="flex flex-col gap-6 py-[25px] px-[25px]"
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="size-[48px] rounded-full overflow-hidden shrink-0 bg-primary">
+                        <img
+                          src={testimonials[testimonialIdx].avatar}
+                          alt={testimonials[testimonialIdx].name}
+                          className="size-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <p className="text-[16px] font-medium text-[#262626] leading-6">
+                          {testimonials[testimonialIdx].name}
+                        </p>
+                        <p className="text-[13px] font-normal text-[#262626] leading-[1.5]">
+                          {testimonials[testimonialIdx].role}
+                        </p>
+                      </div>
+                    </div>
+                    <img
+                      src="/assets/icons/quote.svg"
+                      alt=""
+                      className="size-[40px] shrink-0"
+                    />
+                  </div>
+                  <p className="text-[16px] font-normal leading-6 text-[#4c4c4d]">
+                    {testimonials[testimonialIdx].quote}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="flex items-center justify-center gap-[10px]">
+              <button
+                onClick={() =>
+                  setTestimonialIdx((p) =>
+                    p === 0 ? testimonials.length - 1 : p - 1,
+                  )
+                }
+                className="bg-white h-[35px] w-[40px] rounded-[5px] flex items-center justify-center"
+              >
+                <img
+                  src="/assets/icons/arrow-left.svg"
+                  alt="Prev"
+                  className="size-5"
+                />
+              </button>
+              <div className="flex items-center gap-[6px]">
+                {testimonials.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setTestimonialIdx(i)}
+                    className={`size-[10px] rounded-full transition-colors ${
+                      i === testimonialIdx ? "bg-white" : "bg-white/40"
+                    }`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={() =>
+                  setTestimonialIdx((p) =>
+                    p === testimonials.length - 1 ? 0 : p + 1,
+                  )
+                }
+                className="border border-white h-[35px] w-[40px] rounded-[5px] flex items-center justify-center"
+              >
+                <img
+                  src="/assets/icons/arrow-right.svg"
+                  alt="Next"
+                  className="size-5"
+                />
+              </button>
+            </div>
+          </div>
+
+          {/* Desktop: 3 cards in a row */}
+          <div className="hidden xl:block relative w-full max-w-[1479px]">
             <div className="bg-white rounded-[10px] border border-[#f7f7f8] p-[23px]">
-              {/* Desktop: 3 cards in a row */}
-              <div className="hidden xl:flex gap-[20px]">
+              <div className="flex gap-[20px]">
                 {testimonials.map((t, i) => (
                   <div
                     key={i}
@@ -607,49 +693,7 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              {/* Mobile/tablet: carousel */}
-              <div className="xl:hidden">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={testimonialIdx}
-                    initial={{ opacity: 0, x: 60 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -60 }}
-                    transition={{ duration: 0.35 }}
-                    className="bg-white border border-[#f1f1f3] rounded-[16px] p-[40px] max-w-full"
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-center gap-[10px] min-w-0">
-                        <div className="size-[50px] rounded-full overflow-hidden shrink-0 bg-primary">
-                          <img
-                            src={testimonials[testimonialIdx].avatar}
-                            alt={testimonials[testimonialIdx].name}
-                            className="size-full object-cover"
-                          />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-[16px] font-medium text-[#262626] truncate">
-                            {testimonials[testimonialIdx].name}
-                          </p>
-                          <p className="text-[13px] font-normal text-[#262626] truncate">
-                            {testimonials[testimonialIdx].role}
-                          </p>
-                        </div>
-                      </div>
-                      <img
-                        src="/assets/icons/quote.svg"
-                        alt=""
-                        className="size-[40px] shrink-0"
-                      />
-                    </div>
-                    <p className="mt-[30px] text-[16px] font-normal leading-[1.5] text-[#4c4c4d]">
-                      {testimonials[testimonialIdx].quote}
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Carousel controls */}
+              {/* Desktop controls */}
               <div className="flex items-center justify-center gap-[20px] mt-[30px]">
                 <button
                   onClick={() =>
