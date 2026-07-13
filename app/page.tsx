@@ -510,7 +510,7 @@ export default function LandingPage() {
                         src={featureImages[i].inset}
                         alt=""
                         width={1000}
-                        height={10x00}
+                        height={1000}
                         className="h-[100.05%] w-full"
                       />
                     </div>
