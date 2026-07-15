@@ -434,7 +434,7 @@ export default function LandingPage() {
       <section className="px-4 xl:px-10 ">
         <div className="w-full max-w-[1479px] mx-auto">
           {/* ──────── INTRO TEXT ──────── */}
-          <FadeIn className="flex pt-10 pb-[60px] xl:pt-[60px] xl:pb-16">
+          <FadeIn className="flex pt-10 pb-[60px] xl:py-[120px]">
             <div className="w-full xl:w-[85%] flex flex-col gap-5 xl:gap-[30px]">
               <p className="text-[20px] leading-[35px] xl:text-[30px] font-medium text-dark xl:leading-[50px]">
                 Cleara is an AI powered platform designed for freelancers,
@@ -450,7 +450,7 @@ export default function LandingPage() {
           </FadeIn>
 
           {/* ──────── WHY CLEARA ──────── */}
-          <FadeIn id="features" className="flex pb-[60px] xl:pb-20">
+          <FadeIn id="features" className="flex">
             <div className="flex flex-col gap-5 xl:gap-[30px] w-full">
               <p className="text-[18px] xl:text-[20px] font-medium text-darker">
                 Why Cleara works better
@@ -473,7 +473,7 @@ export default function LandingPage() {
           </FadeIn>
 
           {/* ──────── FEATURES ──────── */}
-          <FadeIn id="how-it-works" className="pb-10 xl:pb-20">
+          <FadeIn id="how-it-works" className="py-[60px] xl:py-[120px]">
             {/* Mobile: 3 stacked cards with embedded images */}
             <div className="flex flex-col gap-[30px] md:hidden">
               {/* How Cleara Works header */}
@@ -617,7 +617,7 @@ export default function LandingPage() {
       {/* ──────── TESTIMONIALS ──────── */}
       <section
         id="testimonials"
-        className="bg-primary py-[60px] xl:py-0 xl:h-[696px] flex items-center justify-center overflow-hidden"
+        className="bg-primary py-[60px] xl:py-[100px] flex items-center justify-center"
       >
         <div className="flex flex-col items-center w-full gap-[75px] px-4 xl:px-10">
           <div className="text-center text-white max-w-[529px]">
@@ -806,7 +806,7 @@ export default function LandingPage() {
       {/* ──────── PRICING ──────── */}
       <FadeIn
         id="pricing"
-        className="flex flex-col items-center py-[60px] px-4 xl:px-10"
+        className="flex flex-col items-center py-[60px] xl:py-[120px] px-4 xl:px-10"
       >
         <div className="flex flex-col gap-[25px] items-center w-full max-w-[1287px]">
           <div className="flex flex-col gap-[25px] items-center w-full max-w-[492px]">
@@ -928,7 +928,7 @@ export default function LandingPage() {
       </FadeIn>
 
       {/* ──────── COMPARISON TABLE ──────── */}
-      <FadeIn className="flex justify-center py-[60px] px-4 xl:px-10">
+      <FadeIn className="flex justify-center py-[60px] xl:pb-[143px] px-4 xl:px-10">
         <div className="w-full max-w-[1479px] flex flex-col gap-[50px] items-center">
           <div className="text-center text-dark">
             <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[39px]">
@@ -995,7 +995,7 @@ export default function LandingPage() {
       {/* ──────── FAQ ──────── */}
       <section
         id="faqs"
-        className="bg-surface-hover py-[60px] flex justify-center"
+        className="bg-surface-hover py-[60px] xl:py-[100px] flex justify-center"
       >
         <FadeIn className="w-[1290px] max-w-[1479px] px-4 xl:px-10">
           <div className="text-center text-dark mb-[30px] xl:mb-[50px]">
@@ -1007,47 +1007,59 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-x-16 gap-y-[30px] relative">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-y-[30px] relative">
             {/* Vertical divider */}
             <div className="absolute left-1/2 top-0 bottom-0 w-px bg-black/10 hidden xl:block" />
 
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className={`py-[30px] not-last:border-b xl:border-b border-black/10 ${
+                className={`py-[30px] border-b border-black/10 ${
                   i % 2 === 0 ? "xl:pr-8" : "xl:pl-8"
+                }${i === faqs.length - 1 ? " !border-b-0" : ""}${
+                  i === faqs.length - 2 ? " xl:!border-b-0" : ""
                 }`}
               >
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
-                  className="flex items-center justify-between w-full text-left"
-                >
-                  <p className="text-[18px] font-medium text-dark max-w-[80%]">
+                {/* Mobile accordion */}
+                <div className="xl:hidden">
+                  <button
+                    onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
+                    className="flex items-center justify-between w-full text-left"
+                  >
+                    <p className="text-[18px] font-medium text-dark">{faq.q}</p>
+                    <motion.img
+                      src="/assets/icons/chevron-down.svg"
+                      alt="Toggle"
+                      className="size-[24px] shrink-0 ml-4"
+                      animate={{ rotate: openFaq === i ? 180 : 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {openFaq === i && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                      >
+                        <p className="text-[16px] font-normal text-[rgba(26,26,26,0.8)] leading-[25px] pt-[25px]">
+                          {faq.a}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+                {/* Desktop static */}
+                <div className="hidden xl:block">
+                  <p className="text-[18px] font-medium text-dark mb-[25px]">
                     {faq.q}
                   </p>
-                  <motion.img
-                    src="/assets/icons/chevron-down.svg"
-                    alt="Toggle"
-                    className="size-[24px] shrink-0 ml-4"
-                    animate={{ rotate: openFaq === i ? 180 : 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                  />
-                </button>
-                <AnimatePresence initial={false}>
-                  {openFaq === i && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-[16px] font-normal text-[rgba(26,26,26,0.8)] leading-[25px] pt-[25px]">
-                        {faq.a}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                  <p className="text-[16px] font-normal text-[rgba(26,26,26,0.8)] leading-[25px]">
+                    {faq.a}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -1055,7 +1067,7 @@ export default function LandingPage() {
       </section>
 
       {/* ──────── FOOTER ──────── */}
-      <footer className="bg-primary-900 min-h-[511px] flex justify-center py-[50px] xl:pt-[90px]">
+      <footer className="bg-primary-900 min-h-[511px] flex justify-center py-[50px] xl:pt-[90px] xl:pb-10">
         <div className="w-full max-w-[1479px] px-5 xl:px-10 flex flex-col">
           <div className="flex flex-col xl:flex-row gap-10 xl:gap-[481px] justify-between">
             <div className="flex flex-col gap-[15px] w-full xl:w-[442px]">
@@ -1076,7 +1088,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-between gap-8 xl:gap-[120px] text-white">
+            <div className="flex flex-wrap justify-between xl:justify-normal gap-8 xl:gap-[120px] text-white">
               <div className="flex flex-col gap-[12px]">
                 <p className="text-[16px] font-medium">Platform</p>
                 <div className="flex flex-col gap-[8px] text-[14px] font-normal">
@@ -1105,16 +1117,18 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="mt-[40px] flex flex-col xl:flex-row items-start xl:items-end justify-between xl:gap-0">
+          <div className="w-full h-px bg-white/20 my-[35px] xl:my-[50px]" />
+
+          <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 xl:gap-0">
             <div className="flex flex-col gap-[14px] w-full xl:w-[388px]">
               <p className="text-[16px] font-normal text-white">
                 Be a part of our community
               </p>
-              <div className="relative border border-white/20 rounded-[51px] h-[49px] flex items-center justify-between p-[4px] pr-10">
+              <div className="relative border border-white/20 rounded-[51px] h-[49px] flex items-center justify-between p-[4px]">
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="rounded-[51px] px-4 pr-26 h-full bg-transparent text-[14px] font-normal text-white placeholder:text-white/60 outline-none flex-1 min-w-0"
+                  className="h-full bg-transparent text-[14px] font-normal text-white placeholder:text-white/60 outline-none flex-1 min-w-0 rounded-[51px] px-4 pr-34"
                 />
                 <button className="absolute right-[4px] bg-white text-black text-[14px] font-medium px-[28px] py-[9px] rounded-[41px] shrink-0">
                   Subscribe
@@ -1122,9 +1136,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="w-full h-px bg-white/20 my-[35px] xl:my-[50px]" />
-
-            <div className="flex flex-col-reverse xl:flex-row items-center gap-5 xl:gap-[328px] w-full xl:w-auto">
+            <div className="flex flex-col-reverse xl:flex-row justify-center items-center gap-5 xl:gap-[328px] w-full xl:w-auto">
               <div className="flex items-center justify-center gap-[10px]">
                 <a href="#">
                   <img
