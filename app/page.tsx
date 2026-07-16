@@ -455,7 +455,7 @@ export default function LandingPage() {
               <p className="text-[18px] xl:text-[20px] font-medium text-darker">
                 Why Cleara works better
               </p>
-              <div className="flex flex-row gap-[25px] xl:gap-8 flex-wrap w-full">
+              <div className="flex flex-row justify-between gap-[25px] xl:gap-8 flex-wrap w-full">
                 {whyClearaItems.map((item, i) => (
                   <div key={item} className="flex items-center gap-[12px]">
                     <div className="bg-surface-hover px-[14px] py-[8px] rounded-[6px]">
@@ -928,7 +928,7 @@ export default function LandingPage() {
       </FadeIn>
 
       {/* ──────── COMPARISON TABLE ──────── */}
-      <FadeIn className="flex justify-center py-[60px] xl:pb-[143px] px-4 xl:px-10">
+      <FadeIn className="flex justify-center py-[60px] xl:py-0 xl:pb-[143px] px-4 xl:px-10">
         <div className="w-full max-w-[1479px] flex flex-col gap-[50px] items-center">
           <div className="text-center text-dark">
             <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[39px]">
@@ -1007,18 +1007,19 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-y-[30px] relative">
+          <div className="grid grid-cols-1 xl:grid-cols-2 not-xl:gap-y-[30px] relative">
             {/* Vertical divider */}
             <div className="absolute left-1/2 top-0 bottom-0 w-px bg-black/10 hidden xl:block" />
 
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className={`py-[30px] border-b border-black/10 ${
-                  i % 2 === 0 ? "xl:pr-8" : "xl:pl-8"
-                }${i === faqs.length - 1 ? " !border-b-0" : ""}${
-                  i === faqs.length - 2 ? " xl:!border-b-0" : ""
-                }`}
+                className={`py-[30px] xl:py-[40px] xl:px-[23px] border-b even:xl:pr-[80px] odd:xl:pl-[80px] border-black/10 
+                  ${i === faqs.length - 1 ? " !border-b-0" : ""}   
+                  ${i === faqs.length - 2 ? "xl:!border-b-0" : ""} 
+                  ${i === 1 || i === 0 ? "xl:!pt-[15px]" : ""}
+                  ${i === faqs.length - 2 || i === faqs.length - 1 ? "xl:!pb-[15px]" : ""}
+                   `}
               >
                 {/* Mobile accordion */}
                 <div className="xl:hidden">
@@ -1067,9 +1068,9 @@ export default function LandingPage() {
       </section>
 
       {/* ──────── FOOTER ──────── */}
-      <footer className="bg-primary-900 min-h-[511px] flex justify-center py-[50px] xl:pt-[90px] xl:pb-10">
+      <footer className="bg-primary-900 min-h-[511px] flex justify-center py-[50px] xl:pt-[100px] xl:pb-10">
         <div className="w-full max-w-[1479px] px-5 xl:px-10 flex flex-col">
-          <div className="flex flex-col xl:flex-row gap-10 xl:gap-[481px] justify-between">
+          <div className="flex flex-col xl:flex-row gap-10 xl:gap-[48px] justify-between">
             <div className="flex flex-col gap-[15px] w-full xl:w-[442px]">
               <div className="flex items-center gap-[5px]">
                 <img
@@ -1119,12 +1120,12 @@ export default function LandingPage() {
 
           <div className="w-full h-px bg-white/20 my-[35px] xl:my-[50px]" />
 
-          <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6 xl:gap-0">
+          <div className="flex flex-col xl:flex-row items-start xl:items-end justify-between gap-6 xl:gap-0">
             <div className="flex flex-col gap-[14px] w-full xl:w-[388px]">
               <p className="text-[16px] font-normal text-white">
                 Be a part of our community
               </p>
-              <div className="relative border border-white/20 rounded-[51px] h-[49px] flex items-center justify-between p-[4px]">
+              <div className="relative border border-white/20 rounded-[51px] h-[49px] flex items-center justify-between">
                 <input
                   type="email"
                   placeholder="Enter your email"
@@ -1136,7 +1137,10 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="flex flex-col-reverse xl:flex-row justify-center items-center gap-5 xl:gap-[328px] w-full xl:w-auto">
+            <div className="flex flex-col xl:flex-row justify-center items-center gap-5 xl:gap-[328px] w-full xl:w-auto">
+              <p className="text-[14px] font-light text-white">
+                © 2025 Docwrite. All rights reserved.
+              </p>
               <div className="flex items-center justify-center gap-[10px]">
                 <a href="#">
                   <img
@@ -1160,9 +1164,6 @@ export default function LandingPage() {
                   />
                 </a>
               </div>
-              <p className="text-[14px] font-light text-white">
-                © 2025 Docwrite. All rights reserved.
-              </p>
             </div>
           </div>
         </div>
