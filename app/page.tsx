@@ -1139,7 +1139,7 @@ export default function LandingPage() {
 
             <div className="flex flex-col xl:flex-row justify-center items-center gap-5 xl:gap-[328px] w-full xl:w-auto">
               <p className="text-[14px] font-light text-white">
-                © 2025 Docwrite. All rights reserved.
+                © 2025 Cleara. All rights reserved.
               </p>
               <div className="flex items-center justify-center gap-[10px]">
                 <a href="#">
