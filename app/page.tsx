@@ -1,18 +1,12 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
 import { useState, Fragment } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-
-const navLinks = [
-  "Features",
-  "How it works",
-  "Testimonials",
-  "Pricing",
-  "FAQs",
-];
+import FadeIn from "@/components/shared/FadeIn";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import Input from "@/components/ui/Input";
 
 const whyClearaItems = [
   "One Tool Instead of Many",
@@ -178,161 +172,33 @@ const faqs = [
   },
 ];
 
-function FadeIn({
-  children,
-  className,
-  id,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-}) {
-  return (
-    <motion.div
-      id={id}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6 }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 export default function LandingPage() {
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [activeFeature, setActiveFeature] = useState(0);
   const [showWaitlist, setShowWaitlist] = useState(false);
   const [openFaq, setOpenFaq] = useState(-1);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <main className="overflow-x-hidden">
       {/* ──────── HERO ──────── */}
       <section className="relative bg-surface xl:h-297.5 overflow-hidden px-4 xl:px-10">
-        <img
+        <Image
           src="/assets/icons/hero-vector.svg"
           alt=""
-          className="absolute h-full w-full max-w-none"
+          fill
+          className="object-cover"
         />
         <div className="relative z-10 flex flex-col items-center pt-10">
-          <motion.nav
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex justify-between items-center bg-white rounded-[45px] md:rounded-[39px] w-full max-w-[500px] md:max-w-214.5 h-[58px] md:h-auto py-0 md:py-3.5 px-[14px] md:px-4.25"
-          >
-            <div className="flex items-center gap-[5px]">
-              <div className="md:size-12 md:bg-primary md:rounded-[30px] flex items-center justify-center">
-                <img
-                  src="/assets/icons/logo-icon-mobile.svg"
-                  alt=""
-                  className="size-[25px] md:hidden"
-                />
-                <img
-                  src="/assets/icons/ai-generate.svg"
-                  alt=""
-                  className="hidden md:block size-7.75"
-                />
-              </div>
-              <span className="text-[20px] md:hidden font-medium text-primary leading-normal">
-                Cleara
-              </span>
-            </div>
-            <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="md:hidden size-[30px] flex items-center justify-center"
-            >
-              <img
-                src="/assets/icons/menu-hamburger.svg"
-                alt="Menu"
-                className="size-full"
-              />
-            </button>
-            <div className="hidden md:flex items-center gap-[35px] text-[17px] leading-[20px] text-dark">
-              <a href="#features" className="font-medium">
-                Features
-              </a>
-              <a href="#how-it-works" className="font-normal">
-                How it works
-              </a>
-              <a href="#testimonials" className="font-normal">
-                Testimonials
-              </a>
-              <a href="#pricing" className="font-normal">
-                Pricing
-              </a>
-              <a href="#faqs" className="font-normal">
-                FAQs
-              </a>
-            </div>
-            <button className="hidden md:block bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]">
-              Sign In
-            </button>
-          </motion.nav>
-
-          {/* Mobile full-screen menu */}
-          <AnimatePresence>
-            {mobileMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="fixed inset-0 z-50 md:hidden"
-              >
-                <div className="absolute inset-0 bg-black/40 backdrop-blur-md" />
-                <motion.div
-                  initial={{ x: "100%" }}
-                  animate={{ x: 0 }}
-                  exit={{ x: "100%" }}
-                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                  className="absolute right-0 top-0 h-full w-[85%] max-w-[360px] bg-white shadow-2xl flex flex-col"
-                >
-                  <div className="flex items-center justify-between px-5 pt-5 pb-3">
-                    <div className="flex items-center gap-[5px]">
-                      <img
-                        src="/assets/icons/logo-icon-mobile.svg"
-                        alt=""
-                        className="size-[25px]"
-                      />
-                      <span className="text-[20px] font-medium text-primary leading-normal">
-                        Cleara
-                      </span>
-                    </div>
-                    <button
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="size-[30px] flex items-center justify-center"
-                    >
-                      <img
-                        src="/assets/icons/cancel.svg"
-                        alt="Close"
-                        className="size-full"
-                      />
-                    </button>
-                  </div>
-                  <nav className="flex flex-col gap-[30px] px-5 pt-8 pb-10">
-                    {navLinks.map((link) => (
-                      <a
-                        key={link}
-                        href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="text-[16px] font-medium text-dark hover:text-primary transition-colors"
-                      >
-                        {link}
-                      </a>
-                    ))}
-                    <button className="w-full bg-primary text-white text-[16px] font-normal py-[15px] rounded-[30px] leading-[22px] mt-4">
-                      Sign In
-                    </button>
-                  </nav>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <Navbar
+            links={[
+              { label: "Features", href: "#features", highlighted: true },
+              { label: "How it works", href: "#how-it-works" },
+              { label: "Testimonials", href: "#testimonials" },
+              { label: "Pricing", href: "#pricing" },
+              { label: "FAQs", href: "#faqs" },
+            ]}
+          />
           <div className="mt-[48px] xl:mt-23.5 border border-[rgba(31,31,31,0.45)] rounded-[56px] w-full max-w-[347px] xl:max-w-101.75 py-3 xl:py-[13px] px-[19px] flex items-center">
             <motion.div
               initial={{ opacity: 0 }}
@@ -406,10 +272,11 @@ export default function LandingPage() {
                 Join Waitlist
               </button>
               <button className="border border-dark flex items-center gap-[10px] px-[22px] py-[13px] rounded-[30px] text-[16px] text-dark font-normal h-[48px]">
-                <img
+                <Image
                   src="/assets/icons/video-fill.svg"
                   alt=""
-                  className="size-[24px]"
+                  width={24}
+                  height={24}
                 />
                 Watch Demo
               </button>
@@ -419,9 +286,11 @@ export default function LandingPage() {
 
         {/* Dashboard screenshot in hero bg */}
         <div className="relative -bottom-8 mt-[45px] xl:mt-[94px] mx-auto w-full xl:w-[1173px] px-4 xl:px-10">
-          <img
+          <Image
             src="/assets/screenshots/dashboard-document-activity.png"
             alt="Dashboard preview"
+            width={1173}
+            height={700}
             className="w-full rounded-[5px] xl:rounded-[20px]"
             style={{
               boxShadow:
@@ -518,7 +387,7 @@ export default function LandingPage() {
                   <div className="flex flex-col gap-[15px] w-full">
                     <div className="flex items-center gap-[12px]">
                       <div className="bg-primary h-[28px] w-[32px] rounded-[5px] flex items-center justify-center">
-                        <img src={card.icon} alt="" className="size-[18px]" />
+                        <Image src={card.icon} alt="" width={18} height={18} />
                       </div>
                       <span className="text-[18px] font-medium leading-[22px] text-[#1a1a1a]">
                         {card.title}
@@ -563,7 +432,12 @@ export default function LandingPage() {
                         className="flex items-center gap-[12px]"
                       >
                         <div className="bg-primary rounded-[5px] flex items-center justify-center size-[32px]">
-                          <img src={card.icon} alt="" className="size-[18px]" />
+                          <Image
+                            src={card.icon}
+                            alt=""
+                            width={18}
+                            height={18}
+                          />
                         </div>
                         <span className="text-[18px] font-medium leading-[22px] text-dark">
                           {card.title}
@@ -587,25 +461,33 @@ export default function LandingPage() {
 
               <div className="relative rounded-[15px] overflow-hidden w-full md:aspect-[16/9] xl:max-w-[762px] xl:aspect-[762/515] shrink-0">
                 <div className="absolute inset-0 overflow-hidden rounded-[15px]">
-                  <img
+                  <Image
                     src="/assets/screenshots/feature-preview.png"
                     alt=""
+                    width={1000}
+                    height={1000}
                     className="absolute w-[152.54%] h-[302.29%] left-[-46.64%] top-[-49.08%] max-w-none"
                   />
                 </div>
                 <div className="absolute inset-0 bg-black/7 rounded-[15px]" />
                 <div className="absolute inset-[36px] rounded-[10px] overflow-hidden">
                   <AnimatePresence mode="wait">
-                    <motion.img
+                    <motion.div
                       key={activeFeature}
-                      src={featureImages[activeFeature].inset}
-                      alt="Feature preview"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="size-full object-cover rounded-[10px]"
-                    />
+                      className="size-full rounded-[10px] overflow-hidden"
+                    >
+                      <Image
+                        src={featureImages[activeFeature].inset}
+                        alt="Feature preview"
+                        width={1000}
+                        height={700}
+                        className="size-full object-cover rounded-[10px]"
+                      />
+                    </motion.div>
                   </AnimatePresence>
                 </div>
               </div>
@@ -645,9 +527,11 @@ export default function LandingPage() {
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <div className="size-[48px] rounded-full overflow-hidden shrink-0 bg-primary">
-                        <img
+                        <Image
                           src={testimonials[testimonialIdx].avatar}
                           alt={testimonials[testimonialIdx].name}
+                          width={48}
+                          height={48}
                           className="size-full object-cover"
                         />
                       </div>
@@ -660,10 +544,12 @@ export default function LandingPage() {
                         </p>
                       </div>
                     </div>
-                    <img
+                    <Image
                       src="/assets/icons/quote.svg"
                       alt=""
-                      className="size-[40px] shrink-0"
+                      width={40}
+                      height={40}
+                      className="shrink-0"
                     />
                   </div>
                   <p className="text-[16px] font-normal leading-6 text-[#4c4c4d]">
@@ -682,10 +568,11 @@ export default function LandingPage() {
                 }
                 className="bg-white h-[35px] w-[40px] rounded-[5px] flex items-center justify-center"
               >
-                <img
+                <Image
                   src="/assets/icons/arrow-left.svg"
                   alt="Prev"
-                  className="size-5"
+                  width={20}
+                  height={20}
                 />
               </button>
               <div className="flex items-center gap-[6px]">
@@ -707,10 +594,11 @@ export default function LandingPage() {
                 }
                 className="border border-white h-[35px] w-[40px] rounded-[5px] flex items-center justify-center"
               >
-                <img
+                <Image
                   src="/assets/icons/arrow-right.svg"
                   alt="Next"
-                  className="size-5"
+                  width={20}
+                  height={20}
                 />
               </button>
             </div>
@@ -728,9 +616,11 @@ export default function LandingPage() {
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex items-center gap-[10px] min-w-0">
                         <div className="size-[50px] rounded-full overflow-hidden shrink-0 bg-primary">
-                          <img
+                          <Image
                             src={t.avatar}
                             alt={t.name}
+                            width={50}
+                            height={50}
                             className="size-full object-cover"
                           />
                         </div>
@@ -743,10 +633,12 @@ export default function LandingPage() {
                           </p>
                         </div>
                       </div>
-                      <img
+                      <Image
                         src="/assets/icons/quote.svg"
                         alt=""
-                        className="size-[40px] shrink-0"
+                        width={40}
+                        height={40}
+                        className="shrink-0"
                       />
                     </div>
                     <p className="mt-[30px] text-[16px] font-normal leading-[1.5] text-[#4c4c4d]">
@@ -766,10 +658,11 @@ export default function LandingPage() {
                   }
                   className="bg-[#f1f1f1] border border-[rgba(238,248,211,0.1)] p-[7px] rounded-[6px]"
                 >
-                  <img
+                  <Image
                     src="/assets/icons/arrow-left.svg"
                     alt="Prev"
-                    className="size-[28px]"
+                    width={28}
+                    height={28}
                   />
                 </button>
                 <div className="flex items-center gap-2">
@@ -791,10 +684,11 @@ export default function LandingPage() {
                   }
                   className="bg-primary border border-[rgba(238,248,211,0.1)] p-[7px] rounded-[6px]"
                 >
-                  <img
+                  <Image
                     src="/assets/icons/arrow-right.svg"
                     alt="Next"
-                    className="size-[28px]"
+                    width={28}
+                    height={28}
                   />
                 </button>
               </div>
@@ -902,7 +796,7 @@ export default function LandingPage() {
                           key={feat.text}
                           className="flex items-start gap-[6px]"
                         >
-                          <img
+                          <Image
                             src={
                               feat.included
                                 ? plan.featured
@@ -911,7 +805,9 @@ export default function LandingPage() {
                                 : "/assets/icons/cancel.svg"
                             }
                             alt={feat.included ? "✓" : "✗"}
-                            className="size-[24px] shrink-0 mt-px"
+                            width={24}
+                            height={24}
+                            className="shrink-0 mt-px"
                           />
                           <span className="text-[16px] font-normal leading-[20px]">
                             {feat.text}
@@ -960,26 +856,28 @@ export default function LandingPage() {
                     {feat}
                   </div>
                   <div className="px-6 py-[19px] flex items-center justify-center text-center bg-primary">
-                    <img
+                    <Image
                       src={
                         comparisonCleara[idx]
                           ? "/assets/icons/check-component.svg"
                           : "/assets/icons/cross-component.svg"
                       }
                       alt={comparisonCleara[idx] ? "✓" : "✗"}
-                      className="size-[24px]"
+                      width={24}
+                      height={24}
                     />
                   </div>
                   <div className="px-6 py-[19px] flex items-center justify-center text-[13px] text-center md:text-[18px] font-normal text-white bg-primary-700">
                     {typeof comparisonOthers[idx] === "boolean" ? (
-                      <img
+                      <Image
                         src={
                           comparisonOthers[idx]
                             ? "/assets/icons/check-component.svg"
                             : "/assets/icons/cross-component.svg"
                         }
                         alt={comparisonOthers[idx] ? "✓" : "✗"}
-                        className="size-[24px]"
+                        width={24}
+                        height={24}
                       />
                     ) : (
                       <span>{comparisonOthers[idx]}</span>
@@ -1028,13 +926,18 @@ export default function LandingPage() {
                     className="flex items-center justify-between w-full text-left"
                   >
                     <p className="text-[18px] font-medium text-dark">{faq.q}</p>
-                    <motion.img
-                      src="/assets/icons/chevron-down.svg"
-                      alt="Toggle"
-                      className="size-[24px] shrink-0 ml-4"
+                    <motion.div
                       animate={{ rotate: openFaq === i ? 180 : 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                    />
+                      className="shrink-0 ml-4"
+                    >
+                      <Image
+                        src="/assets/icons/chevron-down.svg"
+                        alt="Toggle"
+                        width={24}
+                        height={24}
+                      />
+                    </motion.div>
                   </button>
                   <AnimatePresence initial={false}>
                     {openFaq === i && (
@@ -1067,107 +970,7 @@ export default function LandingPage() {
         </FadeIn>
       </section>
 
-      {/* ──────── FOOTER ──────── */}
-      <footer className="bg-primary-900 min-h-[511px] flex justify-center py-[50px] xl:pt-[100px] xl:pb-10">
-        <div className="w-full max-w-[1479px] px-5 xl:px-10 flex flex-col">
-          <div className="flex flex-col xl:flex-row gap-10 xl:gap-[48px] justify-between">
-            <div className="flex flex-col gap-[15px] w-full xl:w-[442px]">
-              <div className="flex items-center gap-[5px]">
-                <img
-                  src="/assets/icons/ai-generate-footer.svg"
-                  alt=""
-                  className="size-[35px]"
-                />
-                <span className="text-[28px] font-semibold text-white">
-                  Cleara
-                </span>
-              </div>
-              <p className="text-[16px] font-medium text-white leading-normal">
-                Cleara is an AI-powered workspace that helps freelancers,
-                agencies, and consultants create professional documents, manage
-                projects, and review contracts—all from one unified platform.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap justify-between xl:justify-normal gap-8 xl:gap-[120px] text-white">
-              <div className="flex flex-col gap-[12px]">
-                <p className="text-[16px] font-medium">Platform</p>
-                <div className="flex flex-col gap-[8px] text-[14px] font-normal">
-                  <a href="#">Why Cleara?</a>
-                  <a href="#">Pricing</a>
-                  <a href="#">FAQ</a>
-                </div>
-              </div>
-              <div className="flex flex-col gap-[12px]">
-                <p className="text-[16px] font-medium">Legal & Support</p>
-                <div className="flex flex-col gap-[8px] text-[14px] font-normal">
-                  <a href="#">Contact Us</a>
-                  <a href="#">Privacy Policy</a>
-                  <a href="#">Terms & Conditions</a>
-                </div>
-              </div>
-              <div className="flex flex-col gap-[12px]">
-                <p className="text-[16px] font-medium">Links</p>
-                <div className="flex flex-col gap-[8px] text-[14px] font-normal">
-                  <a href="#">Features</a>
-                  <a href="#">About Us</a>
-                  <a href="#">How it Works</a>
-                  <a href="#">Testimonials</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-full h-px bg-white/20 my-[35px] xl:my-[50px]" />
-
-          <div className="flex flex-col xl:flex-row items-start xl:items-end justify-between gap-6 xl:gap-0">
-            <div className="flex flex-col gap-[14px] w-full xl:w-[388px]">
-              <p className="text-[16px] font-normal text-white">
-                Be a part of our community
-              </p>
-              <div className="relative border border-white/20 rounded-[51px] h-[49px] flex items-center justify-between">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="h-full bg-transparent text-[14px] font-normal text-white placeholder:text-white/60 outline-none flex-1 min-w-0 rounded-[51px] px-4 pr-34"
-                />
-                <button className="absolute right-[4px] bg-white text-black text-[14px] font-medium px-[28px] py-[9px] rounded-[41px] shrink-0">
-                  Subscribe
-                </button>
-              </div>
-            </div>
-
-            <div className="flex flex-col xl:flex-row justify-center items-center gap-5 xl:gap-[328px] w-full xl:w-auto">
-              <p className="text-[14px] font-light text-white">
-                © 2025 Cleara. All rights reserved.
-              </p>
-              <div className="flex items-center justify-center gap-[10px]">
-                <a href="#">
-                  <img
-                    src="/assets/icons/linkedin.svg"
-                    alt="LinkedIn"
-                    className="size-[24px]"
-                  />
-                </a>
-                <a href="#">
-                  <img
-                    src="/assets/icons/x-twitter.svg"
-                    alt="X"
-                    className="w-[21px] h-[24px]"
-                  />
-                </a>
-                <a href="#">
-                  <img
-                    src="/assets/icons/tiktok.svg"
-                    alt="TikTok"
-                    className="size-[24px]"
-                  />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       {/* ──────── WAITLIST MODAL ──────── */}
       <AnimatePresence>
@@ -1192,9 +995,11 @@ export default function LandingPage() {
             >
               {/* Decorative vector */}
               <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[10px]">
-                <img
+                <Image
                   src="/assets/icons/hero-vector.svg"
                   alt=""
+                  width={600}
+                  height={600}
                   className="absolute w-[300%] h-[300%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-none"
                 />
               </div>
@@ -1204,10 +1009,11 @@ export default function LandingPage() {
                 onClick={() => setShowWaitlist(false)}
                 className="absolute top-5 right-5 z-10 size-[32px] flex items-center justify-center rounded-full hover:bg-surface-hover transition-colors"
               >
-                <img
+                <Image
                   src="/assets/icons/cancel.svg"
                   alt="Close"
-                  className="size-[16px]"
+                  width={16}
+                  height={16}
                 />
               </button>
 
@@ -1233,15 +1039,16 @@ export default function LandingPage() {
                   </p>
 
                   {/* Email input */}
-                  <div className="flex items-center bg-[rgba(255,255,255,0.83)] border border-[rgba(53,145,155,0.15)] rounded-[50px] h-[50px] w-full max-w-[340px] mt-[36px]">
-                    <input
+                  <div className="relative flex items-center bg-[rgba(255,255,255,0.83)] border border-[rgba(53,145,155,0.15)] rounded-[50px] h-[50px] w-full max-w-[340px] mt-[36px] p-[3px]">
+                    <Input
                       type="email"
                       placeholder="Enter your email"
-                      className="flex-1 bg-transparent text-[14px] text-black placeholder:text-black/50 outline-none pl-[25px] pr-2 min-w-0"
+                      variant="ghost"
+                      className="h-full rounded-[50px] flex-1 min-w-0 pl-[15px] pr-[140px] text-black placeholder-black/50"
                     />
                     <button
                       onClick={() => setShowWaitlist(false)}
-                      className="bg-primary text-white text-[14px] font-medium leading-[14px] px-[20px] py-[11px] rounded-[50px] mr-[4px] shrink-0 hover:bg-primary-700 transition-colors"
+                      className="absolute right-[3px] h-[42px] bg-primary text-white text-[14px] font-medium leading-[14px] px-[20px] rounded-[50px] shrink-0 hover:bg-primary-700 transition-colors"
                     >
                       Join Waitlist
                     </button>
@@ -1250,24 +1057,27 @@ export default function LandingPage() {
                   {/* Social icons */}
                   <div className="flex items-center gap-[8px] mt-[25px]">
                     <a href="#">
-                      <img
+                      <Image
                         src="/assets/icons/linkedin-primary.svg"
                         alt="LinkedIn"
-                        className="size-[24px]"
+                        width={24}
+                        height={24}
                       />
                     </a>
                     <a href="#">
-                      <img
+                      <Image
                         src="/assets/icons/x-twitter-primary.svg"
                         alt="X"
-                        className="w-[21px] h-[24px]"
+                        width={21}
+                        height={24}
                       />
                     </a>
                     <a href="#">
-                      <img
+                      <Image
                         src="/assets/icons/tiktok-primary.svg"
                         alt="TikTok"
-                        className="size-[24px]"
+                        width={24}
+                        height={24}
                       />
                     </a>
                   </div>
