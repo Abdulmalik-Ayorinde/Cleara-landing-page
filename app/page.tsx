@@ -1,18 +1,17 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
-import { useState, Fragment } from "react";
+import { useState, Fragment, useCallback } from "react";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import FadeIn from "@/components/shared/FadeIn";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
-const navLinks = [
-  "Features",
-  "How it works",
-  "Testimonials",
-  "Pricing",
-  "FAQs",
-];
+const WaitlistModal = dynamic(
+  () => import("@/components/shared/WaitlistModal"),
+  { ssr: false },
+);
 
 const whyClearaItems = [
   "One Tool Instead of Many",
@@ -53,7 +52,7 @@ const featureImages = [
   },
   {
     bg: "/assets/screenshots/feature-preview.png",
-    inset: "/assets/screenshots/collaboration-export.png",
+    inset: "/assets/screenshots/collaboration-raw1.png",
   },
 ];
 
@@ -178,161 +177,35 @@ const faqs = [
   },
 ];
 
-function FadeIn({
-  children,
-  className,
-  id,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  id?: string;
-}) {
-  return (
-    <motion.div
-      id={id}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6 }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 export default function LandingPage() {
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [activeFeature, setActiveFeature] = useState(0);
   const [showWaitlist, setShowWaitlist] = useState(false);
   const [openFaq, setOpenFaq] = useState(-1);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const openWaitlist = useCallback(() => setShowWaitlist(true), []);
+  const closeWaitlist = useCallback(() => setShowWaitlist(false), []);
 
   return (
     <main className="overflow-x-hidden">
       {/* ──────── HERO ──────── */}
-      <section className="relative bg-surface xl:h-297.5 overflow-hidden px-4 xl:px-10">
-        <img
+      <section className="relative bg-surface xl:h-297.5 overflow-hidden px-4 lg:px-15">
+        <Image
           src="/assets/icons/hero-vector.svg"
           alt=""
-          className="absolute h-full w-full max-w-none"
+          fill
+          className="object-cover"
         />
         <div className="relative z-10 flex flex-col items-center pt-10">
-          <motion.nav
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex justify-between items-center bg-white rounded-[45px] md:rounded-[39px] w-full max-w-[500px] md:max-w-214.5 h-[58px] md:h-auto py-0 md:py-3.5 px-[14px] md:px-4.25"
-          >
-            <div className="flex items-center gap-[5px]">
-              <div className="md:size-12 md:bg-primary md:rounded-[30px] flex items-center justify-center">
-                <img
-                  src="/assets/icons/logo-icon-mobile.svg"
-                  alt=""
-                  className="size-[25px] md:hidden"
-                />
-                <img
-                  src="/assets/icons/ai-generate.svg"
-                  alt=""
-                  className="hidden md:block size-7.75"
-                />
-              </div>
-              <span className="text-[20px] md:hidden font-medium text-primary leading-normal">
-                Cleara
-              </span>
-            </div>
-            <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="md:hidden size-[30px] flex items-center justify-center"
-            >
-              <img
-                src="/assets/icons/menu-hamburger.svg"
-                alt="Menu"
-                className="size-full"
-              />
-            </button>
-            <div className="hidden md:flex items-center gap-[35px] text-[17px] leading-[20px] text-dark">
-              <a href="#features" className="font-medium">
-                Features
-              </a>
-              <a href="#how-it-works" className="font-normal">
-                How it works
-              </a>
-              <a href="#testimonials" className="font-normal">
-                Testimonials
-              </a>
-              <a href="#pricing" className="font-normal">
-                Pricing
-              </a>
-              <a href="#faqs" className="font-normal">
-                FAQs
-              </a>
-            </div>
-            <button className="hidden md:block bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px]">
-              Sign In
-            </button>
-          </motion.nav>
-
-          {/* Mobile full-screen menu */}
-          <AnimatePresence>
-            {mobileMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className="fixed inset-0 z-50 md:hidden"
-              >
-                <div className="absolute inset-0 bg-black/40 backdrop-blur-md" />
-                <motion.div
-                  initial={{ x: "100%" }}
-                  animate={{ x: 0 }}
-                  exit={{ x: "100%" }}
-                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                  className="absolute right-0 top-0 h-full w-[85%] max-w-[360px] bg-white shadow-2xl flex flex-col"
-                >
-                  <div className="flex items-center justify-between px-5 pt-5 pb-3">
-                    <div className="flex items-center gap-[5px]">
-                      <img
-                        src="/assets/icons/logo-icon-mobile.svg"
-                        alt=""
-                        className="size-[25px]"
-                      />
-                      <span className="text-[20px] font-medium text-primary leading-normal">
-                        Cleara
-                      </span>
-                    </div>
-                    <button
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="size-[30px] flex items-center justify-center"
-                    >
-                      <img
-                        src="/assets/icons/cancel.svg"
-                        alt="Close"
-                        className="size-full"
-                      />
-                    </button>
-                  </div>
-                  <nav className="flex flex-col gap-[30px] px-5 pt-8 pb-10">
-                    {navLinks.map((link) => (
-                      <a
-                        key={link}
-                        href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="text-[16px] font-medium text-dark hover:text-primary transition-colors"
-                      >
-                        {link}
-                      </a>
-                    ))}
-                    <button className="w-full bg-primary text-white text-[16px] font-normal py-[15px] rounded-[30px] leading-[22px] mt-4">
-                      Sign In
-                    </button>
-                  </nav>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <Navbar
+            links={[
+              { label: "Features", href: "#features", highlighted: true },
+              { label: "How it works", href: "#how-it-works" },
+              { label: "Testimonials", href: "#testimonials" },
+              { label: "Pricing", href: "#pricing" },
+              { label: "FAQs", href: "#faqs" },
+            ]}
+          />
           <div className="mt-[48px] xl:mt-23.5 border border-[rgba(31,31,31,0.45)] rounded-[56px] w-full max-w-[347px] xl:max-w-101.75 py-3 xl:py-[13px] px-[19px] flex items-center">
             <motion.div
               initial={{ opacity: 0 }}
@@ -400,16 +273,17 @@ export default function LandingPage() {
             </div>
             <div className="flex items-center justify-center flex-wrap gap-[12px]">
               <button
-                onClick={() => setShowWaitlist(true)}
+                onClick={openWaitlist}
                 className="bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px] h-[48px]"
               >
                 Join Waitlist
               </button>
               <button className="border border-dark flex items-center gap-[10px] px-[22px] py-[13px] rounded-[30px] text-[16px] text-dark font-normal h-[48px]">
-                <img
+                <Image
                   src="/assets/icons/video-fill.svg"
                   alt=""
-                  className="size-[24px]"
+                  width={24}
+                  height={24}
                 />
                 Watch Demo
               </button>
@@ -418,10 +292,12 @@ export default function LandingPage() {
         </div>
 
         {/* Dashboard screenshot in hero bg */}
-        <div className="relative -bottom-8 mt-[45px] xl:mt-[94px] mx-auto w-full xl:w-[1173px] px-4 xl:px-10">
-          <img
+        <div className="relative -bottom-8 mt-[45px] xl:mt-[94px] mx-auto w-full xl:w-[1173px] px-4 lg:px-15">
+          <Image
             src="/assets/screenshots/dashboard-document-activity.png"
             alt="Dashboard preview"
+            width={1173}
+            height={700}
             className="w-full rounded-[5px] xl:rounded-[20px]"
             style={{
               boxShadow:
@@ -431,7 +307,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="px-4 xl:px-10 ">
+      <section className="px-4 lg:px-15 ">
         <div className="w-full max-w-[1479px] mx-auto">
           {/* ──────── INTRO TEXT ──────── */}
           <FadeIn className="flex pt-10 pb-[60px] xl:py-[120px]">
@@ -475,7 +351,7 @@ export default function LandingPage() {
           {/* ──────── FEATURES ──────── */}
           <FadeIn id="how-it-works" className="py-[60px] xl:py-[120px]">
             {/* Mobile: 3 stacked cards with embedded images */}
-            <div className="flex flex-col gap-[30px] md:hidden">
+            <div className="flex flex-col gap-[30px] lg:hidden">
               {/* How Cleara Works header */}
               <div className="flex flex-col gap-[20px] w-full text-[#1a1a1a]">
                 <p className="text-[18px] font-normal leading-[20px]">
@@ -496,21 +372,19 @@ export default function LandingPage() {
                   key={card.title}
                   className="flex flex-col gap-[25px] w-full"
                 >
-                  <div className="border border-[rgba(50,138,147,0.2)] h-[347px] overflow-clip relative rounded-[10px] w-full">
-                    <Image
-                      src="/assets/screenshots/feature-preview.png"
-                      alt=""
-                      width={500}
-                      height={500}
-                      className="absolute -translate-x-1/2 h-[381px] left-1/2 rounded-[10px] top-[-18px] w-full overflow-hidden pointer-events-none object-cover"
-                    />
-
-                    <div className="absolute left-[9px] rounded-[5px] top-[9px] w-[792px] h-[507px] overflow-hidden pointer-events-none">
+                  <div
+                    className="border border-[rgba(50,138,147,0.2)] h-[347px] overflow-clip relative rounded-[10px] w-full"
+                    style={{
+                      backgroundImage:
+                        "url(/assets/screenshots/feature-preview.png)",
+                    }}
+                  >
+                    <div className="absolute left-[9px] rounded-[5px] top-[9px] min-w-[792px] overflow-hidden pointer-events-none">
                       <Image
                         src={featureImages[i].inset}
                         alt=""
-                        width={1000}
-                        height={1000}
+                        width={1500}
+                        height={1500}
                         className="h-[100.05%] w-full"
                       />
                     </div>
@@ -518,7 +392,7 @@ export default function LandingPage() {
                   <div className="flex flex-col gap-[15px] w-full">
                     <div className="flex items-center gap-[12px]">
                       <div className="bg-primary h-[28px] w-[32px] rounded-[5px] flex items-center justify-center">
-                        <img src={card.icon} alt="" className="size-[18px]" />
+                        <Image src={card.icon} alt="" width={18} height={18} />
                       </div>
                       <span className="text-[18px] font-medium leading-[22px] text-[#1a1a1a]">
                         {card.title}
@@ -533,14 +407,14 @@ export default function LandingPage() {
             </div>
 
             {/* Desktop: accordion + shared preview */}
-            <div className="hidden md:flex flex-col xl:flex-row xl:items-start justify-between gap-x-[73px] gap-y-12">
-              <div className="flex flex-col gap-[73px] w-full xl:max-w-[648px] xl:shrink-0">
-                <div className="flex flex-col gap-[20px] w-full xl:max-w-[429px]">
+            <div className="hidden lg:flex lg:flex-row lg:items-stretch justify-between lg:gap-x-[73px] gap-y-12 h-full">
+              <div className="flex flex-col gap-[73px] w-full lg:w-[45%] lg:max-w-[648px]">
+                <div className="flex flex-col gap-[20px] w-full">
                   <p className="text-[18px] font-normal leading-[20px] text-darker">
                     How Cleara Works
                   </p>
                   <div className="flex flex-col gap-[14px] text-darker">
-                    <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[27px]">
+                    <p className="text-[24px] lg:text-[30px] font-semibold leading-[normal] lg:leading-[27px]">
                       One Workplace. One Workflow
                     </p>
                     <p className="text-[18px] font-normal leading-[25px]">
@@ -563,7 +437,12 @@ export default function LandingPage() {
                         className="flex items-center gap-[12px]"
                       >
                         <div className="bg-primary rounded-[5px] flex items-center justify-center size-[32px]">
-                          <img src={card.icon} alt="" className="size-[18px]" />
+                          <Image
+                            src={card.icon}
+                            alt=""
+                            width={18}
+                            height={18}
+                          />
                         </div>
                         <span className="text-[18px] font-medium leading-[22px] text-dark">
                           {card.title}
@@ -585,27 +464,29 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="relative rounded-[15px] overflow-hidden w-full md:aspect-[16/9] xl:max-w-[762px] xl:aspect-[762/515] shrink-0">
-                <div className="absolute inset-0 overflow-hidden rounded-[15px]">
-                  <img
-                    src="/assets/screenshots/feature-preview.png"
-                    alt=""
-                    className="absolute w-[152.54%] h-[302.29%] left-[-46.64%] top-[-49.08%] max-w-none"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-black/7 rounded-[15px]" />
-                <div className="absolute inset-[36px] rounded-[10px] overflow-hidden">
+              <div className="relative rounded-[15px] flex flex-col overflow-hidden w-full lg:w-[55%] lg:max-w-[762px]">
+                <div className="rounded-[10px] overflow-hidden flex-1">
                   <AnimatePresence mode="wait">
-                    <motion.img
+                    <motion.div
                       key={activeFeature}
-                      src={featureImages[activeFeature].inset}
-                      alt="Feature preview"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="size-full object-cover rounded-[10px]"
-                    />
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                      className="-full h-full rounded-[10px]"
+                      style={{
+                        backgroundImage:
+                          "url(/assets/screenshots/feature-preview.png)",
+                      }}
+                    >
+                      <Image
+                        src={featureImages[activeFeature].inset}
+                        alt="Feature preview"
+                        width={2000}
+                        height={1000}
+                        className="w-full h-full rounded-[10px] p-[35px] object-fill"
+                      />
+                    </motion.div>
                   </AnimatePresence>
                 </div>
               </div>
@@ -617,21 +498,21 @@ export default function LandingPage() {
       {/* ──────── TESTIMONIALS ──────── */}
       <section
         id="testimonials"
-        className="bg-primary py-[60px] xl:py-[100px] flex items-center justify-center"
+        className="bg-primary py-[60px] lg:py-[100px] flex items-center justify-center"
       >
-        <div className="flex flex-col items-center w-full gap-[75px] px-4 xl:px-10">
+        <div className="flex flex-col items-center w-full gap-[75px] px-4 lg:px-15">
           <div className="text-center text-white max-w-[529px]">
-            <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[29px]">
+            <p className="text-[24px] lg:text-[30px] font-semibold leading-[normal] lg:leading-[29px]">
               Real Result From Real Users.
             </p>
-            <p className="mt-3 xl:mt-[15px] text-[18px] font-normal leading-[26px] xl:leading-[25px]">
+            <p className="mt-3 lg:mt-[15px] text-[18px] font-normal leading-[26px] lg:leading-[25px]">
               Discover how Cleara helps freelancers and agencies simplify
               documentation, project management, and client collaboration.
             </p>
           </div>
 
           {/* Mobile: carousel without outer wrapper */}
-          <div className="flex flex-col gap-[24px] w-full xl:hidden">
+          <div className="flex flex-col gap-[24px] w-full lg:hidden">
             <div className="bg-white min-h-[224px] rounded-[10px] w-full">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -645,9 +526,11 @@ export default function LandingPage() {
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <div className="size-[48px] rounded-full overflow-hidden shrink-0 bg-primary">
-                        <img
+                        <Image
                           src={testimonials[testimonialIdx].avatar}
                           alt={testimonials[testimonialIdx].name}
+                          width={48}
+                          height={48}
                           className="size-full object-cover"
                         />
                       </div>
@@ -660,10 +543,12 @@ export default function LandingPage() {
                         </p>
                       </div>
                     </div>
-                    <img
+                    <Image
                       src="/assets/icons/quote.svg"
                       alt=""
-                      className="size-[40px] shrink-0"
+                      width={40}
+                      height={40}
+                      className="shrink-0"
                     />
                   </div>
                   <p className="text-[16px] font-normal leading-6 text-[#4c4c4d]">
@@ -682,10 +567,11 @@ export default function LandingPage() {
                 }
                 className="bg-white h-[35px] w-[40px] rounded-[5px] flex items-center justify-center"
               >
-                <img
+                <Image
                   src="/assets/icons/arrow-left.svg"
                   alt="Prev"
-                  className="size-5"
+                  width={20}
+                  height={20}
                 />
               </button>
               <div className="flex items-center gap-[6px]">
@@ -707,19 +593,20 @@ export default function LandingPage() {
                 }
                 className="border border-white h-[35px] w-[40px] rounded-[5px] flex items-center justify-center"
               >
-                <img
+                <Image
                   src="/assets/icons/arrow-right.svg"
                   alt="Next"
-                  className="size-5"
+                  width={20}
+                  height={20}
                 />
               </button>
             </div>
           </div>
 
           {/* Desktop: 3 cards in a row */}
-          <div className="hidden xl:block relative w-full max-w-[1479px]">
+          <div className="hidden lg:block relative w-full max-w-[1479px]">
             <div className="bg-white rounded-[10px] border border-[#f7f7f8] p-[23px]">
-              <div className="flex gap-[20px]">
+              <div className="grid grid-cols-3 justify-between gap-[20px]">
                 {testimonials.map((t, i) => (
                   <div
                     key={i}
@@ -728,9 +615,11 @@ export default function LandingPage() {
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex items-center gap-[10px] min-w-0">
                         <div className="size-[50px] rounded-full overflow-hidden shrink-0 bg-primary">
-                          <img
+                          <Image
                             src={t.avatar}
                             alt={t.name}
+                            width={50}
+                            height={50}
                             className="size-full object-cover"
                           />
                         </div>
@@ -743,10 +632,12 @@ export default function LandingPage() {
                           </p>
                         </div>
                       </div>
-                      <img
+                      <Image
                         src="/assets/icons/quote.svg"
                         alt=""
-                        className="size-[40px] shrink-0"
+                        width={40}
+                        height={40}
+                        className="shrink-0"
                       />
                     </div>
                     <p className="mt-[30px] text-[16px] font-normal leading-[1.5] text-[#4c4c4d]">
@@ -766,10 +657,11 @@ export default function LandingPage() {
                   }
                   className="bg-[#f1f1f1] border border-[rgba(238,248,211,0.1)] p-[7px] rounded-[6px]"
                 >
-                  <img
+                  <Image
                     src="/assets/icons/arrow-left.svg"
                     alt="Prev"
-                    className="size-[28px]"
+                    width={28}
+                    height={28}
                   />
                 </button>
                 <div className="flex items-center gap-2">
@@ -791,10 +683,11 @@ export default function LandingPage() {
                   }
                   className="bg-primary border border-[rgba(238,248,211,0.1)] p-[7px] rounded-[6px]"
                 >
-                  <img
+                  <Image
                     src="/assets/icons/arrow-right.svg"
                     alt="Next"
-                    className="size-[28px]"
+                    width={28}
+                    height={28}
                   />
                 </button>
               </div>
@@ -806,7 +699,7 @@ export default function LandingPage() {
       {/* ──────── PRICING ──────── */}
       <FadeIn
         id="pricing"
-        className="flex flex-col items-center py-[60px] xl:py-[120px] px-4 xl:px-10"
+        className="flex flex-col items-center py-[60px] xl:py-[120px] px-4 lg:px-15"
       >
         <div className="flex flex-col gap-[25px] items-center w-full max-w-[1287px]">
           <div className="flex flex-col gap-[25px] items-center w-full max-w-[492px]">
@@ -850,11 +743,11 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-[24px] md:flex-row md:gap-[30px] md:flex-wrap md:justify-center w-full">
+          <div className="flex flex-col gap-[24px] md:flex-row md:gap-[30px] md:flex-wrap md:justify-center w-full lg:grid grid-cols-3">
             {plans.map((plan) => (
               <div
                 key={plan.name}
-                className={`rounded-[10px] w-full md:w-[409px] overflow-hidden ${
+                className={`rounded-[10px] w-full overflow-hidden ${
                   plan.featured
                     ? "bg-primary border border-[rgba(255,255,255,0.31)]"
                     : "bg-white border border-[rgba(26,26,26,0.3)]"
@@ -879,7 +772,7 @@ export default function LandingPage() {
                         <span className="text-[20px] font-medium">month</span>
                       </p>
                     </div>
-                    <p className="text-[16px] font-normal leading-[24px]">
+                    <p className="text-[16px] font-normal leading-[24px] mr-8">
                       {plan.description}
                     </p>
                   </div>
@@ -902,7 +795,7 @@ export default function LandingPage() {
                           key={feat.text}
                           className="flex items-start gap-[6px]"
                         >
-                          <img
+                          <Image
                             src={
                               feat.included
                                 ? plan.featured
@@ -911,7 +804,9 @@ export default function LandingPage() {
                                 : "/assets/icons/cancel.svg"
                             }
                             alt={feat.included ? "✓" : "✗"}
-                            className="size-[24px] shrink-0 mt-px"
+                            width={24}
+                            height={24}
+                            className="shrink-0 mt-px"
                           />
                           <span className="text-[16px] font-normal leading-[20px]">
                             {feat.text}
@@ -928,8 +823,8 @@ export default function LandingPage() {
       </FadeIn>
 
       {/* ──────── COMPARISON TABLE ──────── */}
-      <FadeIn className="flex justify-center py-[60px] xl:py-0 xl:pb-[143px] px-4 xl:px-10">
-        <div className="w-full max-w-[1479px] flex flex-col gap-[50px] items-center">
+      <FadeIn className="flex justify-center py-[60px] xl:py-0 xl:pb-[143px] px-4 lg:px-15">
+        <div className="w-full max-w-[1290px] flex flex-col gap-[50px] items-center">
           <div className="text-center text-dark">
             <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[39px]">
               Why Cleara Stands Out.
@@ -960,26 +855,28 @@ export default function LandingPage() {
                     {feat}
                   </div>
                   <div className="px-6 py-[19px] flex items-center justify-center text-center bg-primary">
-                    <img
+                    <Image
                       src={
                         comparisonCleara[idx]
                           ? "/assets/icons/check-component.svg"
                           : "/assets/icons/cross-component.svg"
                       }
                       alt={comparisonCleara[idx] ? "✓" : "✗"}
-                      className="size-[24px]"
+                      width={24}
+                      height={24}
                     />
                   </div>
                   <div className="px-6 py-[19px] flex items-center justify-center text-[13px] text-center md:text-[18px] font-normal text-white bg-primary-700">
                     {typeof comparisonOthers[idx] === "boolean" ? (
-                      <img
+                      <Image
                         src={
                           comparisonOthers[idx]
                             ? "/assets/icons/check-component.svg"
                             : "/assets/icons/cross-component.svg"
                         }
                         alt={comparisonOthers[idx] ? "✓" : "✗"}
-                        className="size-[24px]"
+                        width={24}
+                        height={24}
                       />
                     ) : (
                       <span>{comparisonOthers[idx]}</span>
@@ -995,46 +892,51 @@ export default function LandingPage() {
       {/* ──────── FAQ ──────── */}
       <section
         id="faqs"
-        className="bg-surface-hover py-[60px] xl:py-[100px] flex justify-center"
+        className="bg-surface-hover py-[60px] lg:py-[100px] flex justify-center"
       >
-        <FadeIn className="w-[1290px] max-w-[1479px] px-4 xl:px-10">
-          <div className="text-center text-dark mb-[30px] xl:mb-[50px]">
-            <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[29px]">
+        <FadeIn className="w-[1290px] max-w-[1479px] px-4 lg:px-15">
+          <div className="text-center text-dark mb-[30px] lg:mb-[50px]">
+            <p className="text-[24px] lg:text-[30px] font-semibold leading-[normal] lg:leading-[29px]">
               Frequently Asked Questions
             </p>
-            <p className="mt-3 xl:mt-[15px] text-[18px] font-normal leading-[25px]">
+            <p className="mt-3 lg:mt-[15px] text-[18px] font-normal leading-[25px]">
               Everything you need to know about Cleara
             </p>
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-2 not-xl:gap-y-[30px] relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 not-lg:gap-y-[30px] relative">
             {/* Vertical divider */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-black/10 hidden xl:block" />
+            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-black/10 hidden lg:block" />
 
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className={`py-[30px] xl:py-[40px] xl:px-[23px] border-b even:xl:pr-[80px] odd:xl:pl-[80px] border-black/10 
+                className={`py-[30px] lg:py-[40px] lg:px-[23px] border-b even:lg:pr-[80px] odd:lg:pl-[80px] border-black/10 
                   ${i === faqs.length - 1 ? " !border-b-0" : ""}   
-                  ${i === faqs.length - 2 ? "xl:!border-b-0" : ""} 
-                  ${i === 1 || i === 0 ? "xl:!pt-[15px]" : ""}
-                  ${i === faqs.length - 2 || i === faqs.length - 1 ? "xl:!pb-[15px]" : ""}
+                  ${i === faqs.length - 2 ? "lg:!border-b-0" : ""} 
+                  ${i === 1 || i === 0 ? "lg:!pt-[15px]" : ""}
+                  ${i === faqs.length - 2 || i === faqs.length - 1 ? "lg:!pb-[15px]" : ""}
                    `}
               >
                 {/* Mobile accordion */}
-                <div className="xl:hidden">
+                <div className="lg:hidden">
                   <button
                     onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
                     className="flex items-center justify-between w-full text-left"
                   >
                     <p className="text-[18px] font-medium text-dark">{faq.q}</p>
-                    <motion.img
-                      src="/assets/icons/chevron-down.svg"
-                      alt="Toggle"
-                      className="size-[24px] shrink-0 ml-4"
+                    <motion.div
                       animate={{ rotate: openFaq === i ? 180 : 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                    />
+                      className="shrink-0 ml-4"
+                    >
+                      <Image
+                        src="/assets/icons/chevron-down.svg"
+                        alt="Toggle"
+                        width={24}
+                        height={24}
+                      />
+                    </motion.div>
                   </button>
                   <AnimatePresence initial={false}>
                     {openFaq === i && (
@@ -1053,7 +955,7 @@ export default function LandingPage() {
                   </AnimatePresence>
                 </div>
                 {/* Desktop static */}
-                <div className="hidden xl:block">
+                <div className="hidden lg:block">
                   <p className="text-[18px] font-medium text-dark mb-[25px]">
                     {faq.q}
                   </p>
@@ -1067,216 +969,9 @@ export default function LandingPage() {
         </FadeIn>
       </section>
 
-      {/* ──────── FOOTER ──────── */}
-      <footer className="bg-primary-900 min-h-[511px] flex justify-center py-[50px] xl:pt-[100px] xl:pb-10">
-        <div className="w-full max-w-[1479px] px-5 xl:px-10 flex flex-col">
-          <div className="flex flex-col xl:flex-row gap-10 xl:gap-[48px] justify-between">
-            <div className="flex flex-col gap-[15px] w-full xl:w-[442px]">
-              <div className="flex items-center gap-[5px]">
-                <img
-                  src="/assets/icons/ai-generate-footer.svg"
-                  alt=""
-                  className="size-[35px]"
-                />
-                <span className="text-[28px] font-semibold text-white">
-                  Cleara
-                </span>
-              </div>
-              <p className="text-[16px] font-medium text-white leading-normal">
-                Cleara is an AI-powered workspace that helps freelancers,
-                agencies, and consultants create professional documents, manage
-                projects, and review contracts—all from one unified platform.
-              </p>
-            </div>
+      <Footer />
 
-            <div className="flex flex-wrap justify-between xl:justify-normal gap-8 xl:gap-[120px] text-white">
-              <div className="flex flex-col gap-[12px]">
-                <p className="text-[16px] font-medium">Platform</p>
-                <div className="flex flex-col gap-[8px] text-[14px] font-normal">
-                  <a href="#">Why Cleara?</a>
-                  <a href="#">Pricing</a>
-                  <a href="#">FAQ</a>
-                </div>
-              </div>
-              <div className="flex flex-col gap-[12px]">
-                <p className="text-[16px] font-medium">Legal & Support</p>
-                <div className="flex flex-col gap-[8px] text-[14px] font-normal">
-                  <a href="#">Contact Us</a>
-                  <a href="#">Privacy Policy</a>
-                  <a href="#">Terms & Conditions</a>
-                </div>
-              </div>
-              <div className="flex flex-col gap-[12px]">
-                <p className="text-[16px] font-medium">Links</p>
-                <div className="flex flex-col gap-[8px] text-[14px] font-normal">
-                  <a href="#">Features</a>
-                  <a href="#">About Us</a>
-                  <a href="#">How it Works</a>
-                  <a href="#">Testimonials</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="w-full h-px bg-white/20 my-[35px] xl:my-[50px]" />
-
-          <div className="flex flex-col xl:flex-row items-start xl:items-end justify-between gap-6 xl:gap-0">
-            <div className="flex flex-col gap-[14px] w-full xl:w-[388px]">
-              <p className="text-[16px] font-normal text-white">
-                Be a part of our community
-              </p>
-              <div className="relative border border-white/20 rounded-[51px] h-[49px] flex items-center justify-between">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="h-full bg-transparent text-[14px] font-normal text-white placeholder:text-white/60 outline-none flex-1 min-w-0 rounded-[51px] px-4 pr-34"
-                />
-                <button className="absolute right-[4px] bg-white text-black text-[14px] font-medium px-[28px] py-[9px] rounded-[41px] shrink-0">
-                  Subscribe
-                </button>
-              </div>
-            </div>
-
-            <div className="flex flex-col xl:flex-row justify-center items-center gap-5 xl:gap-[328px] w-full xl:w-auto">
-              <p className="text-[14px] font-light text-white">
-                © 2025 Docwrite. All rights reserved.
-              </p>
-              <div className="flex items-center justify-center gap-[10px]">
-                <a href="#">
-                  <img
-                    src="/assets/icons/linkedin.svg"
-                    alt="LinkedIn"
-                    className="size-[24px]"
-                  />
-                </a>
-                <a href="#">
-                  <img
-                    src="/assets/icons/x-twitter.svg"
-                    alt="X"
-                    className="w-[21px] h-[24px]"
-                  />
-                </a>
-                <a href="#">
-                  <img
-                    src="/assets/icons/tiktok.svg"
-                    alt="TikTok"
-                    className="size-[24px]"
-                  />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      {/* ──────── WAITLIST MODAL ──────── */}
-      <AnimatePresence>
-        {showWaitlist && (
-          <motion.div
-            key="waitlist-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setShowWaitlist(false)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(26,26,26,0.12)] backdrop-blur-[7.5px] px-4"
-          >
-            <motion.div
-              key="waitlist-modal"
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-[10px] w-full max-w-[607px] shrink-0 min-h-[452px]"
-            >
-              {/* Decorative vector */}
-              <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[10px]">
-                <img
-                  src="/assets/icons/hero-vector.svg"
-                  alt=""
-                  className="absolute w-[300%] h-[300%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-none"
-                />
-              </div>
-
-              {/* Close button */}
-              <button
-                onClick={() => setShowWaitlist(false)}
-                className="absolute top-5 right-5 z-10 size-[32px] flex items-center justify-center rounded-full hover:bg-surface-hover transition-colors"
-              >
-                <img
-                  src="/assets/icons/cancel.svg"
-                  alt="Close"
-                  className="size-[16px]"
-                />
-              </button>
-
-              {/* Header */}
-              <div className="relative z-[1] flex flex-col items-center text-center pt-[30px] xl:pt-[50px] px-5">
-                <p className="text-[20px] xl:text-[24px] font-semibold text-black leading-[24px]">
-                  Get Early Access to Cleara
-                </p>
-                <p className="mt-[12px] text-[14px] font-normal text-black leading-[18px] max-w-[357px]">
-                  Sign up for early access and discover how one unified
-                  workspace can transform the way you work with clients.
-                </p>
-              </div>
-
-              {/* Inner card */}
-              <div className="relative z-[1] mx-5 xl:mx-[63px] mt-[20px] xl:mt-[30px] bg-white/60 rounded-[10px] overflow-hidden">
-                <div className="bg-gradient-to-b from-[rgba(215,233,235,0.5)] to-[rgba(122,132,133,0)] mx-[7px] my-[7px] rounded-[10px] flex flex-col items-center pt-[25px] pb-[27px] px-4">
-                  <p className="text-[16px] font-semibold text-black leading-[16px]">
-                    Join the waitlist
-                  </p>
-                  <p className="mt-[10px] text-[14px] font-normal text-black leading-[14px]">
-                    Sign up now for early notification upon launch.
-                  </p>
-
-                  {/* Email input */}
-                  <div className="flex items-center bg-[rgba(255,255,255,0.83)] border border-[rgba(53,145,155,0.15)] rounded-[50px] h-[50px] w-full max-w-[340px] mt-[36px]">
-                    <input
-                      type="email"
-                      placeholder="Enter your email"
-                      className="flex-1 bg-transparent text-[14px] text-black placeholder:text-black/50 outline-none pl-[25px] pr-2 min-w-0"
-                    />
-                    <button
-                      onClick={() => setShowWaitlist(false)}
-                      className="bg-primary text-white text-[14px] font-medium leading-[14px] px-[20px] py-[11px] rounded-[50px] mr-[4px] shrink-0 hover:bg-primary-700 transition-colors"
-                    >
-                      Join Waitlist
-                    </button>
-                  </div>
-
-                  {/* Social icons */}
-                  <div className="flex items-center gap-[8px] mt-[25px]">
-                    <a href="#">
-                      <img
-                        src="/assets/icons/linkedin-primary.svg"
-                        alt="LinkedIn"
-                        className="size-[24px]"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        src="/assets/icons/x-twitter-primary.svg"
-                        alt="X"
-                        className="w-[21px] h-[24px]"
-                      />
-                    </a>
-                    <a href="#">
-                      <img
-                        src="/assets/icons/tiktok-primary.svg"
-                        alt="TikTok"
-                        className="size-[24px]"
-                      />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <WaitlistModal show={showWaitlist} onClose={closeWaitlist} />
     </main>
   );
 }
