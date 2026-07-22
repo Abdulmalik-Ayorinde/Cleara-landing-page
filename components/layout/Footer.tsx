@@ -40,19 +40,19 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="flex min-h-[511px] justify-center bg-primary-900 py-[50px] xl:pt-[100px] xl:pb-10">
-      <div className="flex w-full max-w-[1479px] flex-col px-5 xl:px-10">
-        <div className="flex flex-col justify-between gap-10 xl:flex-row xl:gap-[48px]">
-          <div className="flex w-full flex-col gap-[15px] xl:w-[442px]">
+    <footer className="flex min-h-[511px] justify-center bg-primary-900 py-[50px] lg:pt-[100px] lg:pb-10">
+      <div className="flex w-full max-w-[1479px] flex-col px-5 lg:px-15">
+        <div className="flex flex-col justify-between gap-10 lg:flex-row lg:gap-[48px]">
+          <div className="flex w-full flex-col gap-[15px] lg:w-[442px]">
             <ClearaLogo variant="footer" />
             <p className="text-[16px] font-medium leading-normal text-white">
-              Cleara is an AI-powered workspace that helps freelancers, agencies,
-              and consultants create professional documents, manage projects, and
-              review contracts—all from one unified platform.
+              Cleara is an AI-powered workspace that helps freelancers,
+              agencies, and consultants create professional documents, manage
+              projects, and review contracts—all from one unified platform.
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-between gap-8 xl:justify-normal xl:gap-[120px] text-white">
+          <div className="flex flex-wrap justify-between gap-8 lg:justify-normal lg:gap-15 xl:gap-[120px] text-white">
             {linkColumns.map((col) => (
               <div key={col.title} className="flex flex-col gap-[12px]">
                 <p className="text-[16px] font-medium">{col.title}</p>
@@ -68,10 +68,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="my-[35px] h-px w-full bg-white/20 xl:my-[50px]" />
+        <div className="hidden lg:block my-[35px] h-px w-full bg-white/20 lg:my-[50px]" />
 
-        <div className="flex flex-col items-start justify-between gap-6 xl:flex-row xl:items-end xl:gap-0">
-          <div className="flex w-full flex-col gap-[14px] xl:w-[388px]">
+        <div className="mt-[40px] lg:mt-0 flex flex-col items-start justify-between gap-[35px] lg:flex-row lg:items-end lg:gap-0">
+          <div className="flex w-full flex-col gap-[14px] lg:w-[388px]">
             <p className="text-[16px] font-normal text-white">
               Be a part of our community
             </p>
@@ -88,14 +88,33 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex w-full items-center justify-center gap-5 xl:w-auto xl:gap-[328px]">
+          <p className="hidden lg:flex text-[14px] font-light text-white">
+            &copy; 2025 Cleara. All rights reserved.
+          </p>
+
+          <div className="hidden lg:flex items-center justify-center gap-[10px]">
+            {socialLinks.map((link) => (
+              <a key={link.alt} href={link.href}>
+                <Image src={link.icon} alt={link.alt} width={24} height={24} />
+              </a>
+            ))}
+          </div>
+
+          <div className="lg:hidden h-px w-full bg-white/20" />
+
+          <div className="lg:hidden flex flex-col w-full items-center justify-center gap-5 lg:w-auto lg:gap-[328px]">
             <p className="text-[14px] font-light text-white">
               &copy; 2025 Cleara. All rights reserved.
             </p>
             <div className="flex items-center justify-center gap-[10px]">
               {socialLinks.map((link) => (
                 <a key={link.alt} href={link.href}>
-                  <Image src={link.icon} alt={link.alt} width={24} height={24} />
+                  <Image
+                    src={link.icon}
+                    alt={link.alt}
+                    width={24}
+                    height={24}
+                  />
                 </a>
               ))}
             </div>

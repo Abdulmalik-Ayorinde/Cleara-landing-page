@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import ClearaLogo from "../shared/ClearaLogo";
+import Link from "next/link";
 
 export interface NavLink {
   label: string;
@@ -29,7 +30,10 @@ export default function Navbar({
         className="flex h-[58px] w-full max-w-[500px] items-center justify-between rounded-[45px] bg-white px-[14px] py-0 md:h-auto md:max-w-214.5 md:rounded-[39px] md:py-3.5 md:px-4.25"
       >
         <div className="flex items-center gap-[5px]">
-          <div className="flex items-center justify-center md:size-12 md:rounded-[30px] md:bg-primary">
+          <Link
+            href="/"
+            className="flex items-center justify-center md:size-12 md:rounded-[30px] md:bg-primary"
+          >
             <Image
               src="/assets/icons/logo-icon-mobile.svg"
               alt=""
@@ -44,7 +48,7 @@ export default function Navbar({
               height={31}
               className="hidden md:block"
             />
-          </div>
+          </Link>
           <span className="text-[20px] font-medium leading-normal text-primary md:hidden">
             Cleara
           </span>

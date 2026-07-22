@@ -1,12 +1,17 @@
 "use client";
 
-import { useState, Fragment } from "react";
+import { useState, Fragment, useCallback } from "react";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import FadeIn from "@/components/shared/FadeIn";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import Input from "@/components/ui/Input";
+
+const WaitlistModal = dynamic(
+  () => import("@/components/shared/WaitlistModal"),
+  { ssr: false },
+);
 
 const whyClearaItems = [
   "One Tool Instead of Many",
@@ -47,7 +52,7 @@ const featureImages = [
   },
   {
     bg: "/assets/screenshots/feature-preview.png",
-    inset: "/assets/screenshots/collaboration-export.png",
+    inset: "/assets/screenshots/collaboration-raw1.png",
   },
 ];
 
@@ -178,11 +183,13 @@ export default function LandingPage() {
   const [activeFeature, setActiveFeature] = useState(0);
   const [showWaitlist, setShowWaitlist] = useState(false);
   const [openFaq, setOpenFaq] = useState(-1);
+  const openWaitlist = useCallback(() => setShowWaitlist(true), []);
+  const closeWaitlist = useCallback(() => setShowWaitlist(false), []);
 
   return (
     <main className="overflow-x-hidden">
       {/* ──────── HERO ──────── */}
-      <section className="relative bg-surface xl:h-297.5 overflow-hidden px-4 xl:px-10">
+      <section className="relative bg-surface xl:h-297.5 overflow-hidden px-4 lg:px-15">
         <Image
           src="/assets/icons/hero-vector.svg"
           alt=""
@@ -266,7 +273,7 @@ export default function LandingPage() {
             </div>
             <div className="flex items-center justify-center flex-wrap gap-[12px]">
               <button
-                onClick={() => setShowWaitlist(true)}
+                onClick={openWaitlist}
                 className="bg-primary text-white text-[16px] font-normal px-[22px] py-[13px] rounded-[30px] leading-[22px] h-[48px]"
               >
                 Join Waitlist
@@ -285,7 +292,7 @@ export default function LandingPage() {
         </div>
 
         {/* Dashboard screenshot in hero bg */}
-        <div className="relative -bottom-8 mt-[45px] xl:mt-[94px] mx-auto w-full xl:w-[1173px] px-4 xl:px-10">
+        <div className="relative -bottom-8 mt-[45px] xl:mt-[94px] mx-auto w-full xl:w-[1173px] px-4 lg:px-15">
           <Image
             src="/assets/screenshots/dashboard-document-activity.png"
             alt="Dashboard preview"
@@ -300,7 +307,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="px-4 xl:px-10 ">
+      <section className="px-4 lg:px-15 ">
         <div className="w-full max-w-[1479px] mx-auto">
           {/* ──────── INTRO TEXT ──────── */}
           <FadeIn className="flex pt-10 pb-[60px] xl:py-[120px]">
@@ -344,7 +351,7 @@ export default function LandingPage() {
           {/* ──────── FEATURES ──────── */}
           <FadeIn id="how-it-works" className="py-[60px] xl:py-[120px]">
             {/* Mobile: 3 stacked cards with embedded images */}
-            <div className="flex flex-col gap-[30px] md:hidden">
+            <div className="flex flex-col gap-[30px] lg:hidden">
               {/* How Cleara Works header */}
               <div className="flex flex-col gap-[20px] w-full text-[#1a1a1a]">
                 <p className="text-[18px] font-normal leading-[20px]">
@@ -365,21 +372,19 @@ export default function LandingPage() {
                   key={card.title}
                   className="flex flex-col gap-[25px] w-full"
                 >
-                  <div className="border border-[rgba(50,138,147,0.2)] h-[347px] overflow-clip relative rounded-[10px] w-full">
-                    <Image
-                      src="/assets/screenshots/feature-preview.png"
-                      alt=""
-                      width={500}
-                      height={500}
-                      className="absolute -translate-x-1/2 h-[381px] left-1/2 rounded-[10px] top-[-18px] w-full overflow-hidden pointer-events-none object-cover"
-                    />
-
-                    <div className="absolute left-[9px] rounded-[5px] top-[9px] w-[792px] h-[507px] overflow-hidden pointer-events-none">
+                  <div
+                    className="border border-[rgba(50,138,147,0.2)] h-[347px] overflow-clip relative rounded-[10px] w-full"
+                    style={{
+                      backgroundImage:
+                        "url(/assets/screenshots/feature-preview.png)",
+                    }}
+                  >
+                    <div className="absolute left-[9px] rounded-[5px] top-[9px] min-w-[792px] overflow-hidden pointer-events-none">
                       <Image
                         src={featureImages[i].inset}
                         alt=""
-                        width={1000}
-                        height={1000}
+                        width={1500}
+                        height={1500}
                         className="h-[100.05%] w-full"
                       />
                     </div>
@@ -402,14 +407,14 @@ export default function LandingPage() {
             </div>
 
             {/* Desktop: accordion + shared preview */}
-            <div className="hidden md:flex flex-col xl:flex-row xl:items-start justify-between gap-x-[73px] gap-y-12">
-              <div className="flex flex-col gap-[73px] w-full xl:max-w-[648px] xl:shrink-0">
-                <div className="flex flex-col gap-[20px] w-full xl:max-w-[429px]">
+            <div className="hidden lg:flex lg:flex-row lg:items-stretch justify-between lg:gap-x-[73px] gap-y-12 h-full">
+              <div className="flex flex-col gap-[73px] w-full lg:w-[45%] lg:max-w-[648px]">
+                <div className="flex flex-col gap-[20px] w-full">
                   <p className="text-[18px] font-normal leading-[20px] text-darker">
                     How Cleara Works
                   </p>
                   <div className="flex flex-col gap-[14px] text-darker">
-                    <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[27px]">
+                    <p className="text-[24px] lg:text-[30px] font-semibold leading-[normal] lg:leading-[27px]">
                       One Workplace. One Workflow
                     </p>
                     <p className="text-[18px] font-normal leading-[25px]">
@@ -459,33 +464,27 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="relative rounded-[15px] overflow-hidden w-full md:aspect-[16/9] xl:max-w-[762px] xl:aspect-[762/515] shrink-0">
-                <div className="absolute inset-0 overflow-hidden rounded-[15px]">
-                  <Image
-                    src="/assets/screenshots/feature-preview.png"
-                    alt=""
-                    width={1000}
-                    height={1000}
-                    className="absolute w-[152.54%] h-[302.29%] left-[-46.64%] top-[-49.08%] max-w-none"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-black/7 rounded-[15px]" />
-                <div className="absolute inset-[36px] rounded-[10px] overflow-hidden">
+              <div className="relative rounded-[15px] flex flex-col overflow-hidden w-full lg:w-[55%] lg:max-w-[762px]">
+                <div className="rounded-[10px] overflow-hidden flex-1">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeFeature}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
-                      className="size-full rounded-[10px] overflow-hidden"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                      className="-full h-full rounded-[10px]"
+                      style={{
+                        backgroundImage:
+                          "url(/assets/screenshots/feature-preview.png)",
+                      }}
                     >
                       <Image
                         src={featureImages[activeFeature].inset}
                         alt="Feature preview"
-                        width={1000}
-                        height={700}
-                        className="size-full object-cover rounded-[10px]"
+                        width={2000}
+                        height={1000}
+                        className="w-full h-full rounded-[10px] p-[35px] object-fill"
                       />
                     </motion.div>
                   </AnimatePresence>
@@ -499,21 +498,21 @@ export default function LandingPage() {
       {/* ──────── TESTIMONIALS ──────── */}
       <section
         id="testimonials"
-        className="bg-primary py-[60px] xl:py-[100px] flex items-center justify-center"
+        className="bg-primary py-[60px] lg:py-[100px] flex items-center justify-center"
       >
-        <div className="flex flex-col items-center w-full gap-[75px] px-4 xl:px-10">
+        <div className="flex flex-col items-center w-full gap-[75px] px-4 lg:px-15">
           <div className="text-center text-white max-w-[529px]">
-            <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[29px]">
+            <p className="text-[24px] lg:text-[30px] font-semibold leading-[normal] lg:leading-[29px]">
               Real Result From Real Users.
             </p>
-            <p className="mt-3 xl:mt-[15px] text-[18px] font-normal leading-[26px] xl:leading-[25px]">
+            <p className="mt-3 lg:mt-[15px] text-[18px] font-normal leading-[26px] lg:leading-[25px]">
               Discover how Cleara helps freelancers and agencies simplify
               documentation, project management, and client collaboration.
             </p>
           </div>
 
           {/* Mobile: carousel without outer wrapper */}
-          <div className="flex flex-col gap-[24px] w-full xl:hidden">
+          <div className="flex flex-col gap-[24px] w-full lg:hidden">
             <div className="bg-white min-h-[224px] rounded-[10px] w-full">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -605,9 +604,9 @@ export default function LandingPage() {
           </div>
 
           {/* Desktop: 3 cards in a row */}
-          <div className="hidden xl:block relative w-full max-w-[1479px]">
+          <div className="hidden lg:block relative w-full max-w-[1479px]">
             <div className="bg-white rounded-[10px] border border-[#f7f7f8] p-[23px]">
-              <div className="flex gap-[20px]">
+              <div className="grid grid-cols-3 justify-between gap-[20px]">
                 {testimonials.map((t, i) => (
                   <div
                     key={i}
@@ -700,7 +699,7 @@ export default function LandingPage() {
       {/* ──────── PRICING ──────── */}
       <FadeIn
         id="pricing"
-        className="flex flex-col items-center py-[60px] xl:py-[120px] px-4 xl:px-10"
+        className="flex flex-col items-center py-[60px] xl:py-[120px] px-4 lg:px-15"
       >
         <div className="flex flex-col gap-[25px] items-center w-full max-w-[1287px]">
           <div className="flex flex-col gap-[25px] items-center w-full max-w-[492px]">
@@ -744,11 +743,11 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-[24px] md:flex-row md:gap-[30px] md:flex-wrap md:justify-center w-full">
+          <div className="flex flex-col gap-[24px] md:flex-row md:gap-[30px] md:flex-wrap md:justify-center w-full lg:grid grid-cols-3">
             {plans.map((plan) => (
               <div
                 key={plan.name}
-                className={`rounded-[10px] w-full md:w-[409px] overflow-hidden ${
+                className={`rounded-[10px] w-full overflow-hidden ${
                   plan.featured
                     ? "bg-primary border border-[rgba(255,255,255,0.31)]"
                     : "bg-white border border-[rgba(26,26,26,0.3)]"
@@ -773,7 +772,7 @@ export default function LandingPage() {
                         <span className="text-[20px] font-medium">month</span>
                       </p>
                     </div>
-                    <p className="text-[16px] font-normal leading-[24px]">
+                    <p className="text-[16px] font-normal leading-[24px] mr-8">
                       {plan.description}
                     </p>
                   </div>
@@ -824,8 +823,8 @@ export default function LandingPage() {
       </FadeIn>
 
       {/* ──────── COMPARISON TABLE ──────── */}
-      <FadeIn className="flex justify-center py-[60px] xl:py-0 xl:pb-[143px] px-4 xl:px-10">
-        <div className="w-full max-w-[1479px] flex flex-col gap-[50px] items-center">
+      <FadeIn className="flex justify-center py-[60px] xl:py-0 xl:pb-[143px] px-4 lg:px-15">
+        <div className="w-full max-w-[1290px] flex flex-col gap-[50px] items-center">
           <div className="text-center text-dark">
             <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[39px]">
               Why Cleara Stands Out.
@@ -893,34 +892,34 @@ export default function LandingPage() {
       {/* ──────── FAQ ──────── */}
       <section
         id="faqs"
-        className="bg-surface-hover py-[60px] xl:py-[100px] flex justify-center"
+        className="bg-surface-hover py-[60px] lg:py-[100px] flex justify-center"
       >
-        <FadeIn className="w-[1290px] max-w-[1479px] px-4 xl:px-10">
-          <div className="text-center text-dark mb-[30px] xl:mb-[50px]">
-            <p className="text-[24px] xl:text-[30px] font-semibold leading-[normal] xl:leading-[29px]">
+        <FadeIn className="w-[1290px] max-w-[1479px] px-4 lg:px-15">
+          <div className="text-center text-dark mb-[30px] lg:mb-[50px]">
+            <p className="text-[24px] lg:text-[30px] font-semibold leading-[normal] lg:leading-[29px]">
               Frequently Asked Questions
             </p>
-            <p className="mt-3 xl:mt-[15px] text-[18px] font-normal leading-[25px]">
+            <p className="mt-3 lg:mt-[15px] text-[18px] font-normal leading-[25px]">
               Everything you need to know about Cleara
             </p>
           </div>
 
-          <div className="grid grid-cols-1 xl:grid-cols-2 not-xl:gap-y-[30px] relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 not-lg:gap-y-[30px] relative">
             {/* Vertical divider */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-black/10 hidden xl:block" />
+            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-black/10 hidden lg:block" />
 
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className={`py-[30px] xl:py-[40px] xl:px-[23px] border-b even:xl:pr-[80px] odd:xl:pl-[80px] border-black/10 
+                className={`py-[30px] lg:py-[40px] lg:px-[23px] border-b even:lg:pr-[80px] odd:lg:pl-[80px] border-black/10 
                   ${i === faqs.length - 1 ? " !border-b-0" : ""}   
-                  ${i === faqs.length - 2 ? "xl:!border-b-0" : ""} 
-                  ${i === 1 || i === 0 ? "xl:!pt-[15px]" : ""}
-                  ${i === faqs.length - 2 || i === faqs.length - 1 ? "xl:!pb-[15px]" : ""}
+                  ${i === faqs.length - 2 ? "lg:!border-b-0" : ""} 
+                  ${i === 1 || i === 0 ? "lg:!pt-[15px]" : ""}
+                  ${i === faqs.length - 2 || i === faqs.length - 1 ? "lg:!pb-[15px]" : ""}
                    `}
               >
                 {/* Mobile accordion */}
-                <div className="xl:hidden">
+                <div className="lg:hidden">
                   <button
                     onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
                     className="flex items-center justify-between w-full text-left"
@@ -956,7 +955,7 @@ export default function LandingPage() {
                   </AnimatePresence>
                 </div>
                 {/* Desktop static */}
-                <div className="hidden xl:block">
+                <div className="hidden lg:block">
                   <p className="text-[18px] font-medium text-dark mb-[25px]">
                     {faq.q}
                   </p>
@@ -972,121 +971,7 @@ export default function LandingPage() {
 
       <Footer />
 
-      {/* ──────── WAITLIST MODAL ──────── */}
-      <AnimatePresence>
-        {showWaitlist && (
-          <motion.div
-            key="waitlist-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setShowWaitlist(false)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(26,26,26,0.12)] backdrop-blur-[7.5px] px-4"
-          >
-            <motion.div
-              key="waitlist-modal"
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative bg-white rounded-[10px] w-full max-w-[607px] shrink-0 min-h-[452px]"
-            >
-              {/* Decorative vector */}
-              <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[10px]">
-                <Image
-                  src="/assets/icons/hero-vector.svg"
-                  alt=""
-                  width={600}
-                  height={600}
-                  className="absolute w-[300%] h-[300%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-w-none"
-                />
-              </div>
-
-              {/* Close button */}
-              <button
-                onClick={() => setShowWaitlist(false)}
-                className="absolute top-5 right-5 z-10 size-[32px] flex items-center justify-center rounded-full hover:bg-surface-hover transition-colors"
-              >
-                <Image
-                  src="/assets/icons/cancel.svg"
-                  alt="Close"
-                  width={16}
-                  height={16}
-                />
-              </button>
-
-              {/* Header */}
-              <div className="relative z-[1] flex flex-col items-center text-center pt-[30px] xl:pt-[50px] px-5">
-                <p className="text-[20px] xl:text-[24px] font-semibold text-black leading-[24px]">
-                  Get Early Access to Cleara
-                </p>
-                <p className="mt-[12px] text-[14px] font-normal text-black leading-[18px] max-w-[357px]">
-                  Sign up for early access and discover how one unified
-                  workspace can transform the way you work with clients.
-                </p>
-              </div>
-
-              {/* Inner card */}
-              <div className="relative z-[1] mx-5 xl:mx-[63px] mt-[20px] xl:mt-[30px] bg-white/60 rounded-[10px] overflow-hidden">
-                <div className="bg-gradient-to-b from-[rgba(215,233,235,0.5)] to-[rgba(122,132,133,0)] mx-[7px] my-[7px] rounded-[10px] flex flex-col items-center pt-[25px] pb-[27px] px-4">
-                  <p className="text-[16px] font-semibold text-black leading-[16px]">
-                    Join the waitlist
-                  </p>
-                  <p className="mt-[10px] text-[14px] font-normal text-black leading-[14px]">
-                    Sign up now for early notification upon launch.
-                  </p>
-
-                  {/* Email input */}
-                  <div className="relative flex items-center bg-[rgba(255,255,255,0.83)] border border-[rgba(53,145,155,0.15)] rounded-[50px] h-[50px] w-full max-w-[340px] mt-[36px] p-[3px]">
-                    <Input
-                      type="email"
-                      placeholder="Enter your email"
-                      variant="ghost"
-                      className="h-full rounded-[50px] flex-1 min-w-0 pl-[15px] pr-[140px] text-black placeholder-black/50"
-                    />
-                    <button
-                      onClick={() => setShowWaitlist(false)}
-                      className="absolute right-[3px] h-[42px] bg-primary text-white text-[14px] font-medium leading-[14px] px-[20px] rounded-[50px] shrink-0 hover:bg-primary-700 transition-colors"
-                    >
-                      Join Waitlist
-                    </button>
-                  </div>
-
-                  {/* Social icons */}
-                  <div className="flex items-center gap-[8px] mt-[25px]">
-                    <a href="#">
-                      <Image
-                        src="/assets/icons/linkedin-primary.svg"
-                        alt="LinkedIn"
-                        width={24}
-                        height={24}
-                      />
-                    </a>
-                    <a href="#">
-                      <Image
-                        src="/assets/icons/x-twitter-primary.svg"
-                        alt="X"
-                        width={21}
-                        height={24}
-                      />
-                    </a>
-                    <a href="#">
-                      <Image
-                        src="/assets/icons/tiktok-primary.svg"
-                        alt="TikTok"
-                        width={24}
-                        height={24}
-                      />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <WaitlistModal show={showWaitlist} onClose={closeWaitlist} />
     </main>
   );
 }
